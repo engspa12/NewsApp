@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/thumb_image_view"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:adjustViewBounds="true"
+        android:background="#23DDAA"
+        android:padding="4dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/daily_news" />
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:background="@drawable/news_shape">
+
+        <TextView
+            android:id="@+id/title_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="serif"
+            android:padding="12dp"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            tools:text="Title" />
+
+
+        <TextView
+            android:id="@+id/author_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/date_published_article"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            tools:text="Author" />
+
+        <TextView
+            android:id="@+id/date_published_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="start"
+            android:paddingTop="4dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            android:textSize="12sp"
+            android:textStyle="italic"
+            tools:text="Date Published" />
+
+
+        <TextView
+            android:id="@+id/section_name_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="end|bottom"
+            android:paddingTop="4dp"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            android:textSize="12sp"
+            android:textStyle="bold|italic"
+            tools:text="Section Name" />
+
+    </RelativeLayout>
+</LinearLayout>

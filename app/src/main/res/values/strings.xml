@@ -1,0 +1,22 @@
+<resources>
+    <!--App name-->
+    <string name="app_name">NewsApp</string>
+    <!--Welcome message for main screen-->
+    <string name="welcome_message">Welcome to the News App</string>
+    <!--Instructions in main screen-->
+    <string name="instructions">Enter a key word in the text field and tap on the Search News button to look for related news</string>
+    <!--Text for search button-->
+    <string name="search_button">Search News</string>
+    <!--No internet connection message-->
+    <string name="no_internet_connection">No Internet Connection</string>
+    <!--Message when no articles are available-->
+    <string name="no_data">No Articles Found</string>
+    <string name="search_hint">Type key word</string>
+    <string name="by_unknown_author_text">By unknown author</string>
+    <string name="order_by_query_key">order-by</string>
+    <string name="show_fields_query_key">show-fields</string>
+    <string name="page_size_query_key">page-size</string>
+    <string name="api_key_query_key">api-key</string>
+    <string name="no_image_available_thumbnail_field">No image available</string>
+    <string name="empty_text_message">You need to enter a word or phrase to search</string>
+</resources>

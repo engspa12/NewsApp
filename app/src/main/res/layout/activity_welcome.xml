@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:fillViewport="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#7E57C2">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.example.android.newsapp.WelcomeActivity">
+
+        <TextView
+            android:textStyle="bold|italic"
+            android:textSize="32sp"
+            android:textColor="#FFFFFF"
+            android:id="@+id/welcome_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="12dp"
+            tools:text="@string/welcome_message" />
+
+        <ImageView
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/daily_news"
+            android:adjustViewBounds="true"
+            android:layout_width="200dp"
+            android:layout_height="200dp" />
+
+        <TextView
+            android:textStyle="italic"
+            android:textAlignment="center"
+            android:textSize="18sp"
+            android:textColor="#FFFFFF"
+            android:id="@+id/instructions"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="28dp"
+            android:layout_marginEnd="28dp"
+            android:text="@string/instructions" />
+
+        <EditText
+            android:id="@+id/search_et"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:hint="@string/search_hint"
+            android:backgroundTint="#FFFFFF"
+            android:inputType="textCapWords"
+            android:textColor="#AFD023"
+            android:textColorHint="#64B5F6"
+            android:textSize="28sp" />
+
+        <Button
+            android:backgroundTint="#22882F"
+            android:textColor="#FFFFFF"
+            android:textStyle="italic"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:id="@+id/search_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:text="@string/search_button" />
+    </LinearLayout>
+
+</ScrollView>
