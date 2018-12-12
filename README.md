@@ -40,7 +40,9 @@ API_KEY = Insert your TheGuardianOpenPlatform API key here using double quotes
 
 ## Getting Help
 
-#### To report a specific problem or feature request, open a new issue on Github. For questions, suggestions, or anything else, email to: arturo_lpc@hotmail.com.
+#### To report a specific problem or feature request, open a new issue on Github. For questions, suggestions, or anything else, email to:
+
+###### arturo_lpc@hotmail.com
 
 ## Author
 
