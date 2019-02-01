@@ -23,11 +23,20 @@ import butterknife.ButterKnife;
 public class ArticleAdapter extends ArrayAdapter<Article> {
 
     static class ViewHolder {
-        @BindView(R.id.title_article) TextView titleTextView;
-        @BindView(R.id.section_name_article) TextView sectionNameTextView;
-        @BindView(R.id.author_article) TextView authorTextView;
-        @BindView(R.id.date_published_article) TextView releaseDateTextView;
-        @BindView(R.id.thumb_image_view) ImageView thumbImageView;
+        @BindView(R.id.title_article)
+        TextView titleTextView;
+
+        @BindView(R.id.section_name_article)
+        TextView sectionNameTextView;
+
+        @BindView(R.id.author_article)
+        TextView authorTextView;
+
+        @BindView(R.id.date_published_article)
+        TextView releaseDateTextView;
+
+        @BindView(R.id.thumb_image_view)
+        ImageView thumbImageView;
 
         public ViewHolder(View view){
             ButterKnife.bind(this, view);

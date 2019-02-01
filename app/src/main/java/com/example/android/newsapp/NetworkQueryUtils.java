@@ -22,7 +22,7 @@ import java.util.List;
  */
 
 public final class NetworkQueryUtils {
-    //LOG_TAG
+
     private static final String LOG_TAG = NetworkQueryUtils.class.getSimpleName();
     //Test url for the query
     private static final String TEST_QUERY_URL = "http://content.guardianapis.com/search?order-by=newest&show-fields=byline&q=Ronaldo&api-key=test";
@@ -58,7 +58,7 @@ public final class NetworkQueryUtils {
             JSONObject root = new JSONObject(response);
             JSONObject resp = root.getJSONObject("response");
             JSONArray results = resp.getJSONArray("results");
-            int length = results.length();
+
             //Since WE KNOW the length of the JSONArray results, we can use a for loop with i<features.length() as condition
             //For each item in the JSON response we get the respective data
             for(int i=0;i<results.length();i++){
@@ -130,7 +130,7 @@ public final class NetworkQueryUtils {
      * @return  URL object created from String url
      */
     public static URL createUrl(String stringUrl) {
-        URL url = null;
+        URL url;
         try {
             url = new URL(stringUrl);
         } catch (MalformedURLException exception) {
@@ -147,12 +147,12 @@ public final class NetworkQueryUtils {
      * @return the JSON response
      */
     public static String makeHttpRequest(URL url) throws IOException {
+
         String jsonResponse = "";
 
         if (url == null){
             return jsonResponse;
         }
-
 
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
@@ -163,10 +163,12 @@ public final class NetworkQueryUtils {
             urlConnection.setConnectTimeout(15000 /* milliseconds */);
             urlConnection.connect();
 
-            if (urlConnection.getResponseCode() == 200)
-            { inputStream = urlConnection.getInputStream();
-                jsonResponse = readFromStream(inputStream);}
-            else{
+            if (urlConnection.getResponseCode() == 200) {
+
+                inputStream = urlConnection.getInputStream();
+                jsonResponse = readFromStream(inputStream);
+
+            } else{
                 Log.e("QueryUtils","The Status Code is: " + urlConnection.getResponseCode());
             }
 

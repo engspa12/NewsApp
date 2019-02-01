@@ -9,7 +9,7 @@ import java.util.List;
 public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
 
     //Url for the query
-    private String urlRequest="";
+    private String urlRequest;
 
     //Constructor of ArticleLoader
     public ArticleLoader(Context context, String url){
@@ -29,7 +29,7 @@ public class ArticleLoader extends AsyncTaskLoader<List<Article>> {
         if (urlRequest == null) {
             return null;
         }
-    //return a List of Article objects
+        //return a List of Article objects
         return NetworkQueryUtils.getArticles(urlRequest);
     }
 }

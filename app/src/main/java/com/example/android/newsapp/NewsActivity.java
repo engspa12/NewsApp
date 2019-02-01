@@ -23,16 +23,18 @@ import butterknife.ButterKnife;
 
 public class NewsActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<Article>> {
 
-    //ArticleAdapter
     private ArticleAdapter adapter;
 
-    @BindView(R.id.progress_bar) ProgressBar mProgress;
-    @BindView(R.id.empty_view) TextView emptyView;
+    @BindView(R.id.progress_bar)
+    ProgressBar mProgress;
+
+    @BindView(R.id.empty_view)
+    TextView emptyView;
 
     //Base url for HTTP request
     private static final String URL_REQUEST_BASE = "http://content.guardianapis.com/search";
     //Word to query in Articles
-    private String searchTerm="";
+    private String searchTerm = "";
     //Number of articles to query
     private static final String NUMBER_OF_ARTICLES = "50";
 

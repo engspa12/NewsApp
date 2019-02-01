@@ -3,7 +3,6 @@ package com.example.android.newsapp;
 
 public class Article {
 
-
     //Instance Variables
     private String title;
     private String sectionName;

@@ -18,10 +18,17 @@ import butterknife.ButterKnife;
 
 public class WelcomeActivity extends AppCompatActivity{
 
-    @BindView(R.id.welcome_message) TextView welcomeTV;
-    @BindView(R.id.instructions) TextView instructionsTV;
-    @BindView(R.id.search_button) Button searchButton;
-    @BindView(R.id.search_et) EditText editText;
+    @BindView(R.id.welcome_message)
+    TextView welcomeTV;
+
+    @BindView(R.id.instructions)
+    TextView instructionsTV;
+
+    @BindView(R.id.search_button)
+    Button searchButton;
+
+    @BindView(R.id.search_et)
+    EditText editText;
 
     private String searchTerm;
 
@@ -34,15 +41,12 @@ public class WelcomeActivity extends AppCompatActivity{
 
         ButterKnife.bind(this);
 
-        //Welcome TextView
         welcomeTV.setText(getString(R.string.welcome_message));
 
-        //Instructions TextView
         instructionsTV.setText(getString(R.string.instructions));
 
         editText = (EditText) findViewById(R.id.search_et);
 
-        //Search Button
         searchButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
