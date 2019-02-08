@@ -19,4 +19,7 @@
     <string name="api_key_query_key">api-key</string>
     <string name="no_image_available_thumbnail_field">No image available</string>
     <string name="empty_text_message">You need to enter a word or phrase to search</string>
+    <string name="unknown_release_date_text">Unknown Release Date</string>
+    <string name="unknown_title_message">Unknown title</string>
+    <string name="unknown_section_text">Unknown section</string>
 </resources>

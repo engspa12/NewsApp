@@ -1,4 +1,4 @@
-package com.example.android.newsapp;
+package com.example.android.newsapp.news.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.android.newsapp.R;
+import com.example.android.newsapp.news.Article;
 
 import java.util.ArrayList;
 
@@ -17,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by DBM on 30/05/2017.
+ * Created by DBM on 07/01/2018.
  */
 
 public class ArticleAdapter extends ArrayAdapter<Article> {
@@ -74,18 +76,39 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
         String thumbnailUrl = currentArticle.getThumbnailUrl();
 
         //Set title
-        holder.titleTextView.setText(title);
+        if(title != null) {
+            holder.titleTextView.setText(title);
+        } else{
+            holder.titleTextView.setText(R.string.unknown_title_message);
+        }
+
+
         //Set section name
-        holder.sectionNameTextView.setText(sectionName);
+        if(sectionName != null) {
+            holder.sectionNameTextView.setText(sectionName);
+        } else{
+            holder.sectionNameTextView.setText(R.string.unknown_section_text);
+        }
+
         //Set author
-        if(!author.isEmpty()) {
-            holder.authorTextView.setText(String.format("By %s", author));
+        if(author != null) {
+            if (!author.isEmpty()) {
+                holder.authorTextView.setText(String.format("By %s", author));
+            } else {
+                holder.authorTextView.setText(R.string.by_unknown_author_text);
+            }
         } else{
             holder.authorTextView.setText(R.string.by_unknown_author_text);
         }
-        //Set published date
-        holder.releaseDateTextView.setText(releaseDate);
 
+        //Set published date
+        if(releaseDate != null) {
+            holder.releaseDateTextView.setText(releaseDate);
+        } else {
+            holder.releaseDateTextView.setText(R.string.unknown_release_date_text);
+        }
+
+        //Set thumbnail URL
         if(thumbnailUrl != null && !thumbnailUrl.isEmpty()){
             if(!thumbnailUrl.equals(getContext().getString(R.string.no_image_available_thumbnail_field))) {
                 Glide.with(getContext())
