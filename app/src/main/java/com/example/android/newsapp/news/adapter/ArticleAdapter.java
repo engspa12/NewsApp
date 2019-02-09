@@ -118,6 +118,8 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
             } else{
                 holder.thumbImageView.setImageResource(R.drawable.no_image_available);
             }
+        } else {
+            holder.thumbImageView.setImageResource(R.drawable.no_image_available);
         }
 
         return convertView;

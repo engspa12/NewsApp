@@ -22,4 +22,10 @@
     <string name="unknown_release_date_text">Unknown Release Date</string>
     <string name="unknown_title_message">Unknown title</string>
     <string name="unknown_section_text">Unknown section</string>
+
+    <string name="relevant_news_menu">Relevant News</string>
+    <string name="newest_news_menu">Latest News</string>
+    <string name="search_relevant_news_text">Search Relevant News</string>
+    <string name="search_latest_news_text">Search Latest News</string>
+    <string name="error_message">There was an error while retrieving the data.\nPlease try again later.</string>
 </resources>

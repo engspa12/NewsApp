@@ -2,7 +2,8 @@ package com.example.android.newsapp.root;
 
 import android.app.Application;
 
-import com.example.android.newsapp.http.NewsModule;
+import com.example.android.newsapp.mvp.NewsMVPModule;
+import com.example.android.newsapp.http.NewsRetrofitModule;
 
 public class App extends Application {
 
@@ -14,7 +15,8 @@ public class App extends Application {
 
         component = DaggerApplicationComponent.builder()
                 .applicationModule(new ApplicationModule(this))
-                .newsModule(new NewsModule())
+                .newsRetrofitModule(new NewsRetrofitModule())
+                .newsMVPModule(new NewsMVPModule())
                 .build();
     }
 
