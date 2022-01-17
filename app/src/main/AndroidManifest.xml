@@ -19,7 +19,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.android.newsapp.news.WelcomeActivity" />
         </activity>
-        <activity android:name=".news.WelcomeActivity">
+        <activity android:name=".news.WelcomeActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
