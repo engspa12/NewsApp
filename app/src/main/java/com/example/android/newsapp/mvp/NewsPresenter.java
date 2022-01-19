@@ -1,5 +1,7 @@
 package com.example.android.newsapp.mvp;
 
+import android.util.Log;
+
 import com.example.android.newsapp.http.theguardian.Fields;
 import com.example.android.newsapp.http.theguardian.Result;
 import com.example.android.newsapp.news.Article;
@@ -30,6 +32,8 @@ public class NewsPresenter implements NewsMVP.Presenter {
         this.model = model;
         this.articles = new ArrayList<>();
     }
+
+    private static final String LOG = NewsPresenter.class.getSimpleName();
 
 
     @Override
@@ -87,6 +91,7 @@ public class NewsPresenter implements NewsMVP.Presenter {
                         @Override
                         public void onError(Throwable e) {
                             view.showErrorMessage("There was an error while retrieving the data");
+                            Log.e(LOG, e.getMessage());
                         }
 
                         @Override

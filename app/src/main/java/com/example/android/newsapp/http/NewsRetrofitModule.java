@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class NewsRetrofitModule {
 
-    public static final String BASE_URL = "http://content.guardianapis.com/";
+    public static final String BASE_URL = "https://content.guardianapis.com/";
 
     @Provides
     public Retrofit provideRetrofit(String baseUrl){

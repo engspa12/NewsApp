@@ -85,7 +85,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         //Set section name
         if(sectionName != null) {
-            holder.sectionNameTextView.setText(sectionName);
+            holder.sectionNameTextView.setText(sectionName + " ");
         } else{
             holder.sectionNameTextView.setText(R.string.unknown_section_text);
         }

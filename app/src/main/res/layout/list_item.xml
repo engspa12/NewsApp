@@ -10,7 +10,7 @@
         android:id="@+id/thumb_image_view"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1.5"
+        android:layout_weight="1"
         android:adjustViewBounds="true"
         android:background="#23DDAA"
         android:padding="4dp"
@@ -20,7 +20,7 @@
     <RelativeLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="3"
+        android:layout_weight="2"
         android:background="@drawable/news_shape">
 
         <TextView
@@ -48,7 +48,7 @@
 
         <TextView
             android:id="@+id/date_published_article"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="start"
@@ -63,9 +63,13 @@
 
         <TextView
             android:id="@+id/section_name_article"
-            android:layout_width="match_parent"
+            android:layout_toRightOf="@id/date_published_article"
+            android:layout_toEndOf="@id/date_published_article"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:gravity="end|bottom"
             android:paddingTop="4dp"
             android:paddingStart="12dp"
@@ -73,7 +77,7 @@
             android:paddingBottom="8dp"
             android:textSize="12sp"
             android:textStyle="bold|italic"
-            tools:text="Section Name" />
+            tools:text="Section Name"/>
 
     </RelativeLayout>
 </LinearLayout>
