@@ -11,10 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class NewsRepository implements Repository {
+public class NewsRepositoryImpl implements Repository {
 
     private NewsAPI newsAPI;
 
@@ -30,7 +32,8 @@ public class NewsRepository implements Repository {
     private static final String API_KEY = BuildConfig.API_KEY;
     private static final String FILTER_RESULTS = "headline,byline,thumbnail";
 
-    public NewsRepository(NewsAPI newsAPI){
+    @Inject
+    public NewsRepositoryImpl(NewsAPI newsAPI){
         this.newsAPI = newsAPI;
         this.results = new ArrayList<>();
     }

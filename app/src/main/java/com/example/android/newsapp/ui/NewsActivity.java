@@ -1,10 +1,12 @@
-package com.example.android.newsapp.news;
+package com.example.android.newsapp.ui;
 
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+
+import com.example.android.newsapp.entities.Article;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.app.NavUtils;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,9 +21,7 @@ import android.widget.TextView;
 
 import com.example.android.newsapp.mvp.NewsMVP;
 import com.example.android.newsapp.R;
-import com.example.android.newsapp.http.NewsAPI;
-import com.example.android.newsapp.news.adapter.ArticleAdapter;
-import com.example.android.newsapp.root.App;
+import com.example.android.newsapp.ui.adapter.ArticleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +30,9 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.hilt.android.AndroidEntryPoint;
 
+@AndroidEntryPoint
 public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
 
     public static final String LOG = NewsActivity.class.getSimpleName();
@@ -40,9 +42,6 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
     //Interface Presenter
     @Inject
     NewsMVP.Presenter presenter;
-
-    @Inject
-    NewsAPI newsAPI;
 
     @BindView(R.id.rootView)
     ViewGroup rootView;
@@ -69,8 +68,6 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
         setContentView(R.layout.activity_news);
 
         ButterKnife.bind(this);
-
-        ((App) getApplication()).getComponent().inject(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

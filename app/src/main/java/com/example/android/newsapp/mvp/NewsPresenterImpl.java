@@ -4,10 +4,12 @@ import android.util.Log;
 
 import com.example.android.newsapp.http.theguardian.Fields;
 import com.example.android.newsapp.http.theguardian.Result;
-import com.example.android.newsapp.news.Article;
+import com.example.android.newsapp.entities.Article;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.annotations.Nullable;
@@ -15,7 +17,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class NewsPresenter implements NewsMVP.Presenter {
+public class NewsPresenterImpl implements NewsMVP.Presenter {
 
     //Interface View
     @Nullable
@@ -28,12 +30,13 @@ public class NewsPresenter implements NewsMVP.Presenter {
 
     private List<Article> articles;
 
-    public NewsPresenter(NewsMVP.Model model){
+    @Inject
+    public NewsPresenterImpl(NewsMVP.Model model){
         this.model = model;
         this.articles = new ArrayList<>();
     }
 
-    private static final String LOG = NewsPresenter.class.getSimpleName();
+    private static final String LOG = NewsPresenterImpl.class.getSimpleName();
 
 
     @Override

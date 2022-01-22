@@ -1,4 +1,4 @@
-package com.example.android.newsapp.news.adapter;
+package com.example.android.newsapp.ui.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.newsapp.R;
-import com.example.android.newsapp.news.Article;
+import com.example.android.newsapp.entities.Article;
 
 import java.util.ArrayList;
 
@@ -103,7 +103,7 @@ public class ArticleAdapter extends ArrayAdapter<Article> {
 
         //Set published date
         if(releaseDate != null) {
-            holder.releaseDateTextView.setText(releaseDate);
+            holder.releaseDateTextView.setText(releaseDate + " ");
         } else {
             holder.releaseDateTextView.setText(R.string.unknown_release_date_text);
         }
