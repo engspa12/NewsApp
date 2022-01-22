@@ -10,12 +10,14 @@ import com.example.android.newsapp.entities.Article;
 import com.google.android.material.snackbar.Snackbar;
 import androidx.core.app.NavUtils;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -46,8 +48,8 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
     @BindView(R.id.rootView)
     ViewGroup rootView;
 
-    @BindView(R.id.list)
-    ListView listView;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
 
     @BindView(R.id.empty_view)
     TextView emptyView;
@@ -70,6 +72,10 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
         ButterKnife.bind(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        showEmptyView(false);
+        showRecyclerView(false);
+        showProgressBar(true);
 
         //Get intent
         Intent intent = getIntent();
@@ -94,41 +100,55 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
                     setTitle("NewsApp");
                 }
 
-                //Set EmptyView
-                listView.setEmptyView(emptyView);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+                recyclerView.setLayoutManager(layoutManager);
+                recyclerView.setHasFixedSize(true);
 
                 //Declare Adapter
                 adapter = new ArticleAdapter(this, new ArrayList<Article>());
 
                 //Set Adapter
-                listView.setAdapter(adapter);
-
-                //Set Listener to ListView items
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                        //Get article URL
-                        Article article = (Article) listView.getItemAtPosition(position);
-                        String url = article.getWebUrl();
-                        Uri webPage = Uri.parse(url);
-
-                        //Show article in browser
-                        Intent intent = new Intent(Intent.ACTION_VIEW, webPage);
-                        if (intent.resolveActivity(getPackageManager()) != null) {
-                            startActivity(intent);
-                        }
-                    }
-                });
-
+                recyclerView.setAdapter(adapter);
 
             } else{
                 //Set No internet Connection message
-                mProgress.setVisibility(View.GONE);
-                emptyView.setText(R.string.no_internet_connection);
+                setEmptyViewText(getString(R.string.no_internet_connection));
+                showEmptyView(true);
+                showRecyclerView(false);
+                showProgressBar(false);
             }
         }
 
 
+    }
+
+    private void showEmptyView(boolean show) {
+        if (show){
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
+    }
+
+    private void showRecyclerView(boolean show){
+        if (show){
+            recyclerView.setVisibility(View.VISIBLE);
+        } else {
+            recyclerView.setVisibility(View.GONE);
+        }
+    }
+
+    private void showProgressBar(boolean show){
+        if (show){
+           mProgress.setVisibility(View.VISIBLE);
+        } else {
+           mProgress.setVisibility(View.GONE);
+        }
+    }
+
+    private void setEmptyViewText(String text){
+        emptyView.setText(text);
     }
 
     private boolean isOnline() {
@@ -156,6 +176,9 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
     @Override
     protected void onResume() {
         super.onResume();
+        showEmptyView(false);
+        showRecyclerView(false);
+        showProgressBar(true);
         presenter.setView(this);
         presenter.loadData(searchTerm, sortType);
     }
@@ -166,7 +189,6 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
         //Unsubscribe Disposable
         presenter.rxJavaUnsubscribe();
         articles.clear();
-        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -174,18 +196,18 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
 
         articles = list;
 
-        //Clear Adapter
-        adapter.clear();
-
         //In case the articles list is null, show the message No Articles Found
-        emptyView.setText(R.string.no_data);
-        emptyView.setVisibility(View.VISIBLE);
-        mProgress.setVisibility(View.GONE);
+        setEmptyViewText(getString(R.string.no_data));
+        showEmptyView(true);
+        showProgressBar(false);
+        showRecyclerView(false);
 
         if (articles != null && !articles.isEmpty()) {
             //Add data to Adapter
-            adapter.addAll(articles);
-            emptyView.setVisibility(View.GONE);
+            adapter.setData(articles);
+            adapter.notifyDataSetChanged();
+            showEmptyView(false);
+            showRecyclerView(true);
         }
     }
 
@@ -194,9 +216,10 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
 
         //In case of error in the server or in the query
-        emptyView.setText(R.string.error_message);
-        emptyView.setVisibility(View.VISIBLE);
-        mProgress.setVisibility(View.GONE);
+        setEmptyViewText(getString(R.string.error_message));
+        showEmptyView(true);
+        showProgressBar(false);
+        showRecyclerView(false);
     }
 
 
