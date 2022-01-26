@@ -1,6 +1,8 @@
 package com.example.android.newsapp.entities;
 
 
+import androidx.annotation.Nullable;
+
 public class Article {
 
     //Instance Variables
@@ -67,4 +69,40 @@ public class Article {
     }
 
     public String getThumbnailUrl(){return thumbnailUrl;}
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+
+        if(this.getClass() != (obj != null ? obj.getClass() : null)){
+            return false;
+        }
+
+        Article objArticle = (Article) obj;
+
+        if(!title.equals(objArticle.title)){
+            return false;
+        }
+
+        if(!sectionName.equals(objArticle.sectionName)){
+            return false;
+        }
+
+        if(!author.equals(objArticle.author)){
+            return false;
+        }
+
+        if(!releaseDate.equals(objArticle.releaseDate)){
+            return false;
+        }
+
+        if(!webUrl.equals(objArticle.webUrl)){
+            return false;
+        }
+
+        if(!thumbnailUrl.equals(objArticle.thumbnailUrl)){
+            return false;
+        }
+
+        return true;
+    }
 }

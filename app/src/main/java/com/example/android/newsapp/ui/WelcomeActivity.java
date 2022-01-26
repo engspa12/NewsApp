@@ -2,15 +2,15 @@ package com.example.android.newsapp.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.android.newsapp.R;
 
@@ -34,8 +34,6 @@ public class WelcomeActivity extends AppCompatActivity{
     private String searchTerm;
     private String sortType;
 
-    private static final String LOG = WelcomeActivity.class.getSimpleName();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,23 +51,19 @@ public class WelcomeActivity extends AppCompatActivity{
 
         editText = (EditText) findViewById(R.id.search_et);
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(view -> {
+            searchTerm = editText.getText().toString().trim();
+            searchTerm = searchTerm.replace(" ", " AND ");
 
-            @Override
-            public void onClick(View view) {
-                searchTerm = editText.getText().toString().trim();
-                searchTerm = searchTerm.replace(" ", " AND ");
-
-                if(!searchTerm.equals("")) {
-                    //Attach data to intent so it can be used in the query
-                    Intent intent = new Intent(WelcomeActivity.this, NewsActivity.class);
-                    intent.putExtra("search",searchTerm);
-                    intent.putExtra("sort_type", sortType);
-                    startActivity(intent);
-                }
-                else{
-                    Toast.makeText(getBaseContext(), R.string.empty_text_message,Toast.LENGTH_SHORT).show();
-                }
+            if(!searchTerm.equals("")) {
+                //Attach data to intent so it can be used in the query
+                Intent intent = new Intent(WelcomeActivity.this, NewsActivity.class);
+                intent.putExtra("search",searchTerm);
+                intent.putExtra("sort_type", sortType);
+                startActivity(intent);
+            }
+            else{
+                Toast.makeText(getBaseContext(), R.string.empty_text_message,Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -86,16 +80,15 @@ public class WelcomeActivity extends AppCompatActivity{
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle item selection
-        switch (item.getItemId()) {
-            case R.id.relevant_news:
-                searchButton.setText(getString(R.string.search_relevant_news_text));
-                sortType = "relevance";
-                return true;
-            case R.id.latest_news:
-                searchButton.setText(getString(R.string.search_latest_news_text));
-                sortType = "newest";
-                return true;
-            default:
+        if(item.getItemId() == R.id.relevant_news){
+            searchButton.setText(getString(R.string.search_relevant_news_text));
+            sortType = "relevance";
+            return true;
+        } else if (item.getItemId() == R.id.latest_news) {
+            searchButton.setText(getString(R.string.search_latest_news_text));
+            sortType = "newest";
+            return true;
+        } else {
                 return super.onOptionsItemSelected(item);
         }
     }

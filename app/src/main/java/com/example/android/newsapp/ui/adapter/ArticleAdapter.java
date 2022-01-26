@@ -1,16 +1,15 @@
 package com.example.android.newsapp.ui.adapter;
 
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -18,7 +17,6 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.android.newsapp.R;
 import com.example.android.newsapp.entities.Article;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -32,7 +30,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     private List<Article> mArticlesList;
 
-    public ArticleAdapter(Context context, List<Article> list) {
+    public ArticleAdapter(List<Article> list) {
         this.mArticlesList = list;
     }
 
@@ -104,29 +102,30 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
             holder.thumbImageView.setImageResource(R.drawable.no_image_available);
         }
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //Get article URL
-                Article article = (Article) mArticlesList.get(position);
-                String url = article.getWebUrl();
-                Uri webPage = Uri.parse(url);
+        holder.itemView.setOnClickListener(view -> {
+            //Get article URL
+            Article article = (Article) mArticlesList.get(position);
+            String url = article.getWebUrl();
+            Uri webPage = Uri.parse(url);
 
-                //Show article in browser
-                Intent intent = new Intent(Intent.ACTION_VIEW, webPage);
-                if (intent.resolveActivity(holder.itemView.getContext().getPackageManager()) != null) {
-                    holder.itemView.getContext().startActivity(intent);
-                }
+            //Show article in browser
+            Intent intent = new Intent(Intent.ACTION_VIEW, webPage);
+            if (intent.resolveActivity(holder.itemView.getContext().getPackageManager()) != null) {
+                holder.itemView.getContext().startActivity(intent);
             }
         });
     }
 
-    public void setData(List<Article> newlist){
-        if(newlist != null){
-            this.mArticlesList = newlist;
-        } else {
-            this.mArticlesList.clear();
-        }
+    public void setData(List<Article> newList){
+        List<Article> oldList = mArticlesList;
+        DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
+                new ArticleDiffCallback(
+                        oldList,
+                        newList
+                )
+        );
+        this.mArticlesList = newList;
+        diffResult.dispatchUpdatesTo(this);
     }
 
     @Override
@@ -157,4 +156,37 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         }
 
     }
+
+    public static class ArticleDiffCallback extends DiffUtil.Callback {
+
+        List<Article> oldList;
+        List<Article> newList;
+
+        public ArticleDiffCallback(List<Article> oldList, List<Article> newList) {
+            this.oldList = oldList;
+            this.newList = newList;
+        }
+
+        @Override
+        public int getOldListSize() {
+            return oldList.size();
+        }
+
+        @Override
+        public int getNewListSize() {
+            return newList.size();
+        }
+
+        @Override
+        public boolean areItemsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldList.get(oldItemPosition).getTitle().equals(newList.get(newItemPosition).getTitle());
+        }
+
+        @Override
+        public boolean areContentsTheSame(int oldItemPosition, int newItemPosition) {
+            return oldList.get(oldItemPosition).equals(newList.get(newItemPosition));
+        }
+    }
+
+
 }

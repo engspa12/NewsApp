@@ -4,26 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
-
-import com.example.android.newsapp.entities.Article;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.app.NavUtils;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.example.android.newsapp.mvp.NewsMVP;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.android.newsapp.R;
+import com.example.android.newsapp.entities.Article;
+import com.example.android.newsapp.mvp.NewsMVP;
 import com.example.android.newsapp.ui.adapter.ArticleAdapter;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,7 +103,7 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
                 recyclerView.setHasFixedSize(true);
 
                 //Declare Adapter
-                adapter = new ArticleAdapter(this, new ArrayList<Article>());
+                adapter = new ArticleAdapter(new ArrayList<Article>());
 
                 //Set Adapter
                 recyclerView.setAdapter(adapter);
@@ -164,11 +161,10 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
-            case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
-                return true;
+        // Respond to the action bar's Up/Home button
+        if (item.getItemId() == android.R.id.home) {
+            NavUtils.navigateUpFromSameTask(this);
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -205,7 +201,7 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
         if (articles != null && !articles.isEmpty()) {
             //Add data to Adapter
             adapter.setData(articles);
-            adapter.notifyDataSetChanged();
+            //adapter.notifyDataSetChanged();
             showEmptyView(false);
             showRecyclerView(true);
         }
