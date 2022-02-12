@@ -15,7 +15,8 @@
 
         <TextView
             android:textStyle="bold|italic"
-            android:textSize="32sp"
+            app:fontFamily="@font/cairo_medium"
+            android:textSize="30sp"
             android:textColor="#FFFFFF"
             android:id="@+id/welcome_message"
             android:layout_width="wrap_content"
@@ -38,6 +39,7 @@
             android:textSize="18sp"
             android:textColor="#FFFFFF"
             android:id="@+id/instructions"
+            app:fontFamily="@font/cairo_variablefont_wght"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -65,6 +67,7 @@
             android:textSize="20sp"
             android:textAllCaps="false"
             android:id="@+id/search_button"
+            app:fontFamily="@font/cairo_variablefont_wght"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"

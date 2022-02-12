@@ -33,7 +33,11 @@ public class Fields {
     }
 
     public String getThumbnail() {
-        return thumbnail;
+        if(thumbnail != null){
+            return thumbnail;
+        } else {
+            return "No image available";
+        }
     }
 
     public void setThumbnail(String thumbnail) {

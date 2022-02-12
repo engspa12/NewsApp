@@ -18,7 +18,7 @@ public class Article {
         this.title = articleTitle;
         this.sectionName = sectionName;
         this.author = author;
-        releaseDate = date;
+        this.releaseDate = date;
         this.webUrl = webUrl;
         this.thumbnailUrl = thumbnailUrl;
     }

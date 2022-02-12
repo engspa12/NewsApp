@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.newsapp.R;
+import com.example.android.newsapp.Utils;
 import com.example.android.newsapp.entities.Article;
 import com.example.android.newsapp.mvp.NewsMVP;
 import com.example.android.newsapp.ui.adapter.ArticleAdapter;
@@ -59,7 +60,7 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
 
     private String sortType;
 
-    private List<Article> articles;
+    private List<Article> articles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -149,21 +150,14 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
     }
 
     private boolean isOnline() {
-        //Verify if there is internet connection, if so then update the screen with the news articles
-        //Otherwise show the message there is no internet connection
-        ConnectivityManager cm =
-                (ConnectivityManager)getBaseContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        return activeNetwork != null &&
-                activeNetwork.isConnectedOrConnecting();
+        return Utils.isOnline(getBaseContext());
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Respond to the action bar's Up/Home button
         if (item.getItemId() == android.R.id.home) {
-            NavUtils.navigateUpFromSameTask(this);
+            onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -175,8 +169,15 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
         showEmptyView(false);
         showRecyclerView(false);
         showProgressBar(true);
-        presenter.setView(this);
-        presenter.loadData(searchTerm, sortType);
+        if(isOnline()) {
+            presenter.setView(this);
+            presenter.loadData(searchTerm, sortType);
+        } else {
+            setEmptyViewText(getString(R.string.no_internet_connection));
+            showEmptyView(true);
+            showRecyclerView(false);
+            showProgressBar(false);
+        }
     }
 
     @Override
