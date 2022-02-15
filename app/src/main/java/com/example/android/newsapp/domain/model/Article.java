@@ -1,4 +1,4 @@
-package com.example.android.newsapp.entities;
+package com.example.android.newsapp.domain.model;
 
 
 import androidx.annotation.Nullable;

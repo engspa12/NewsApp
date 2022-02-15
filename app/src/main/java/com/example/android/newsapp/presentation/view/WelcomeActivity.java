@@ -1,4 +1,4 @@
-package com.example.android.newsapp.ui;
+package com.example.android.newsapp.presentation.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.example.android.newsapp.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class WelcomeActivity extends AppCompatActivity{
+public class WelcomeActivity extends AppCompatActivity {
 
     @BindView(R.id.welcome_message)
     TextView welcomeTV;

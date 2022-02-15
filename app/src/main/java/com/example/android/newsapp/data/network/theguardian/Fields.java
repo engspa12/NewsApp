@@ -1,5 +1,5 @@
 
-package com.example.android.newsapp.http.theguardian;
+package com.example.android.newsapp.data.network.theguardian;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

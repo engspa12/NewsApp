@@ -1,4 +1,4 @@
-package com.example.android.newsapp.http;
+package com.example.android.newsapp.data.network;
 
 import javax.inject.Singleton;
 

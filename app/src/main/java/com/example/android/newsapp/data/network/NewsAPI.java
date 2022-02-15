@@ -1,6 +1,6 @@
-package com.example.android.newsapp.http;
+package com.example.android.newsapp.data.network;
 
-import com.example.android.newsapp.http.theguardian.NewsSearch;
+import com.example.android.newsapp.data.network.theguardian.NewsSearch;
 
 import java.util.Map;
 

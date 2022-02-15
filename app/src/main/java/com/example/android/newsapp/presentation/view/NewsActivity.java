@@ -1,9 +1,6 @@
-package com.example.android.newsapp.ui;
+package com.example.android.newsapp.presentation.view;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,15 +9,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NavUtils;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.newsapp.R;
-import com.example.android.newsapp.Utils;
-import com.example.android.newsapp.entities.Article;
-import com.example.android.newsapp.mvp.NewsMVP;
-import com.example.android.newsapp.ui.adapter.ArticleAdapter;
+import com.example.android.newsapp.presentation.presenter.NewsPresenter;
+import com.example.android.newsapp.presentation.view.adapter.ArticleAdapter;
+import com.example.android.newsapp.util.Helper;
+import com.example.android.newsapp.domain.model.Article;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -33,7 +29,7 @@ import butterknife.ButterKnife;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
+public class NewsActivity extends AppCompatActivity implements NewsView {
 
     public static final String LOG = NewsActivity.class.getSimpleName();
 
@@ -41,7 +37,10 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
 
     //Interface Presenter
     @Inject
-    NewsMVP.Presenter presenter;
+    NewsPresenter presenter;
+
+    @Inject
+    Helper helper;
 
     @BindView(R.id.rootView)
     ViewGroup rootView;
@@ -150,7 +149,7 @@ public class NewsActivity extends AppCompatActivity implements NewsMVP.View {
     }
 
     private boolean isOnline() {
-        return Utils.isOnline(getBaseContext());
+        return helper.isOnline(getBaseContext());
     }
 
     @Override

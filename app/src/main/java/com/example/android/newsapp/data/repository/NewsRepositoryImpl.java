@@ -1,10 +1,11 @@
-package com.example.android.newsapp.mvp;
+package com.example.android.newsapp.data.repository;
 
 import com.example.android.newsapp.BuildConfig;
-import com.example.android.newsapp.http.NewsAPI;
-import com.example.android.newsapp.http.theguardian.NewsSearch;
-import com.example.android.newsapp.http.theguardian.Response;
-import com.example.android.newsapp.http.theguardian.Result;
+import com.example.android.newsapp.data.network.NewsAPI;
+import com.example.android.newsapp.data.network.theguardian.NewsSearch;
+import com.example.android.newsapp.data.network.theguardian.Response;
+import com.example.android.newsapp.data.network.theguardian.Result;
+import com.example.android.newsapp.domain.repository.NewsRepository;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,7 +17,7 @@ import javax.inject.Inject;
 import io.reactivex.Observable;
 import io.reactivex.functions.Function;
 
-public class NewsRepositoryImpl implements Repository {
+public class NewsRepositoryImpl implements NewsRepository {
 
     private NewsAPI newsAPI;
 

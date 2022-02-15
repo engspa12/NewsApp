@@ -1,4 +1,4 @@
-package com.example.android.newsapp.ui.adapter;
+package com.example.android.newsapp.presentation.view.adapter;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.newsapp.R;
-import com.example.android.newsapp.entities.Article;
+import com.example.android.newsapp.domain.model.Article;
 
 import java.util.List;
 

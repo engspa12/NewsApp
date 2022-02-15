@@ -1,10 +1,12 @@
-package com.example.android.newsapp.mvp;
+package com.example.android.newsapp.presentation.presenter;
 
 import android.util.Log;
 
-import com.example.android.newsapp.http.theguardian.Fields;
-import com.example.android.newsapp.http.theguardian.Result;
-import com.example.android.newsapp.entities.Article;
+import com.example.android.newsapp.data.network.theguardian.Fields;
+import com.example.android.newsapp.data.network.theguardian.Result;
+import com.example.android.newsapp.domain.interactor.NewsInteractor;
+import com.example.android.newsapp.domain.model.Article;
+import com.example.android.newsapp.presentation.view.NewsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,22 +19,22 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
 
-public class NewsPresenterImpl implements NewsMVP.Presenter {
+public class NewsPresenterImpl implements NewsPresenter {
 
     //Interface View
     @Nullable
-    private NewsMVP.View view;
+    private NewsView view;
 
     //Interface Model
-    private NewsMVP.Model model;
+    private NewsInteractor newsInteractor;
 
     private Disposable subscription;
 
     private List<Article> articles;
 
     @Inject
-    public NewsPresenterImpl(NewsMVP.Model model){
-        this.model = model;
+    public NewsPresenterImpl(NewsInteractor newsIteractor){
+        this.newsInteractor = newsIteractor;
         this.articles = new ArrayList<>();
     }
 
@@ -40,7 +42,7 @@ public class NewsPresenterImpl implements NewsMVP.Presenter {
 
 
     @Override
-    public void setView(NewsMVP.View view) {
+    public void setView(NewsView view) {
         this.view = view;
     }
 
@@ -48,7 +50,7 @@ public class NewsPresenterImpl implements NewsMVP.Presenter {
     public void loadData(String searchTerm, String sortType) {
 
         if(view != null){
-            subscription = model.sendData(searchTerm, sortType)
+            subscription = newsInteractor.sendData(searchTerm, sortType)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribeWith(new DisposableObserver<Result>() {
