@@ -11,19 +11,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.example.android.newsapp.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class WelcomeActivity extends AppCompatActivity {
-
-    @BindView(R.id.welcome_message)
-    TextView welcomeTV;
-
-    @BindView(R.id.instructions)
-    TextView instructionsTV;
 
     @BindView(R.id.search_button)
     Button searchButton;
@@ -41,12 +37,6 @@ public class WelcomeActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        welcomeTV.setText(getString(R.string.welcome_message));
-
-        instructionsTV.setText(getString(R.string.instructions));
-
-        searchButton.setText(getString(R.string.search_relevant_news_text));
-
         sortType = "relevance";
 
         editText = (EditText) findViewById(R.id.search_et);
@@ -61,13 +51,10 @@ public class WelcomeActivity extends AppCompatActivity {
                 intent.putExtra("search",searchTerm);
                 intent.putExtra("sort_type", sortType);
                 startActivity(intent);
-            }
-            else{
-                Toast.makeText(getBaseContext(), R.string.empty_text_message,Toast.LENGTH_SHORT).show();
+            } else {
+                Snackbar.make(searchButton, R.string.empty_text_message, Snackbar.LENGTH_LONG).show();
             }
         });
-
-
     }
 
     @Override
@@ -89,7 +76,7 @@ public class WelcomeActivity extends AppCompatActivity {
             sortType = "newest";
             return true;
         } else {
-                return super.onOptionsItemSelected(item);
+            return super.onOptionsItemSelected(item);
         }
     }
 }

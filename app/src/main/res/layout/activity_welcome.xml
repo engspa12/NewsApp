@@ -24,9 +24,10 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="32dp"
             android:layout_marginBottom="12dp"
-            tools:text="@string/welcome_message" />
+            android:text="@string/welcome_message" />
 
         <ImageView
+            android:id="@+id/news_image"
             android:layout_gravity="center_horizontal"
             android:src="@drawable/daily_news"
             android:adjustViewBounds="true"
@@ -72,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
-            tools:text="@string/search_button" />
+            android:text="@string/search_button" />
     </LinearLayout>
 
 </ScrollView>
