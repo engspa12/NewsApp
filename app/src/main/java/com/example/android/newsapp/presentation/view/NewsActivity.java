@@ -13,10 +13,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.newsapp.R;
+import com.example.android.newsapp.domain.model.Article;
 import com.example.android.newsapp.presentation.presenter.NewsPresenter;
 import com.example.android.newsapp.presentation.view.adapter.ArticleAdapter;
-import com.example.android.newsapp.util.Helper;
-import com.example.android.newsapp.domain.model.Article;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -31,16 +30,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class NewsActivity extends AppCompatActivity implements NewsView {
 
-    public static final String LOG = NewsActivity.class.getSimpleName();
-
     private ArticleAdapter adapter;
 
     //Interface Presenter
     @Inject
     NewsPresenter presenter;
-
-    @Inject
-    Helper helper;
 
     @BindView(R.id.rootView)
     ViewGroup rootView;
@@ -70,86 +64,69 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        showEmptyView(false);
-        showRecyclerView(false);
-        showProgressBar(true);
-
         //Get intent
         Intent intent = getIntent();
 
-        if(intent.hasExtra("search")) {
+        if (intent.hasExtra("search")) {
 
-            if(isOnline()) {
-                //Create empty list of articles
-                articles = new ArrayList<>();
+            //Create empty list of articles
+            articles = new ArrayList<>();
 
-                //Term to use in the search of news
-                searchTerm = intent.getStringExtra("search");
+            //Term to use in the search of news
+            searchTerm = intent.getStringExtra("search");
 
-                //Sort type for query
-                sortType = intent.getStringExtra("sort_type");
+            //Sort type for query
+            sortType = intent.getStringExtra("sort_type");
 
-                if(sortType.equals("relevance")){
-                    setTitle("Relevant News");
-                } else if (sortType.equals("newest")) {
-                    setTitle("Latest News");
-                } else{
-                    setTitle("NewsApp");
-                }
-
-                LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
-                recyclerView.setLayoutManager(layoutManager);
-                recyclerView.setHasFixedSize(true);
-
-                //Declare Adapter
-                adapter = new ArticleAdapter(new ArrayList<Article>());
-
-                //Set Adapter
-                recyclerView.setAdapter(adapter);
-
-            } else{
-                //Set No internet Connection message
-                setEmptyViewText(getString(R.string.no_internet_connection));
-                showEmptyView(true);
-                showRecyclerView(false);
-                showProgressBar(false);
+            if (sortType.equals("relevance")) {
+                setTitle("Relevant News");
+            } else if (sortType.equals("newest")) {
+                setTitle("Latest News");
+            } else {
+                setTitle("NewsApp");
             }
+
+            LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+            recyclerView.setLayoutManager(layoutManager);
+            recyclerView.setHasFixedSize(true);
+
+            //Declare Adapter
+            adapter = new ArticleAdapter(new ArrayList<>());
+
+            //Set Adapter
+            recyclerView.setAdapter(adapter);
         }
 
 
     }
 
     private void showEmptyView(boolean show) {
-        if (show){
+        if (show) {
             emptyView.setVisibility(View.VISIBLE);
         } else {
             emptyView.setVisibility(View.GONE);
         }
     }
 
-    private void showRecyclerView(boolean show){
-        if (show){
+    private void showRecyclerView(boolean show) {
+        if (show) {
             recyclerView.setVisibility(View.VISIBLE);
         } else {
             recyclerView.setVisibility(View.GONE);
         }
     }
 
-    private void showProgressBar(boolean show){
-        if (show){
-           mProgress.setVisibility(View.VISIBLE);
+    private void showProgressBar(boolean show) {
+        if (show) {
+            mProgress.setVisibility(View.VISIBLE);
         } else {
-           mProgress.setVisibility(View.GONE);
+            mProgress.setVisibility(View.GONE);
         }
     }
 
-    private void setEmptyViewText(String text){
+    private void setEmptyViewText(String text) {
         emptyView.setText(text);
-    }
-
-    private boolean isOnline() {
-        return helper.isOnline(getBaseContext());
     }
 
     @Override
@@ -168,15 +145,8 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
         showEmptyView(false);
         showRecyclerView(false);
         showProgressBar(true);
-        if(isOnline()) {
-            presenter.setView(this);
-            presenter.loadData(searchTerm, sortType);
-        } else {
-            setEmptyViewText(getString(R.string.no_internet_connection));
-            showEmptyView(true);
-            showRecyclerView(false);
-            showProgressBar(false);
-        }
+        presenter.setView(this);
+        presenter.loadData(searchTerm, sortType);
     }
 
     @Override
@@ -212,7 +182,7 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
         Snackbar.make(rootView, message, Snackbar.LENGTH_LONG).show();
 
         //In case of error in the server or in the query
-        setEmptyViewText(getString(R.string.error_message));
+        setEmptyViewText(message);
         showEmptyView(true);
         showProgressBar(false);
         showRecyclerView(false);

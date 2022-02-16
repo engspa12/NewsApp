@@ -32,9 +32,4 @@ public abstract class NewsHiltModule {
     public abstract NewsRepository bindRepository(
             NewsRepositoryImpl newsRepositoryImpl
     );
-
-    @Binds
-    public abstract Helper bindHelper(
-        HelperImpl helperImpl
-    );
 }

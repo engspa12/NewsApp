@@ -1,7 +1,7 @@
 package com.example.android.newsapp.data.repository;
 
 import com.example.android.newsapp.BuildConfig;
-import com.example.android.newsapp.data.network.NewsAPI;
+import com.example.android.newsapp.data.network.NewsService;
 import com.example.android.newsapp.data.network.theguardian.NewsSearch;
 import com.example.android.newsapp.data.network.theguardian.Response;
 import com.example.android.newsapp.data.network.theguardian.Result;
@@ -19,7 +19,7 @@ import io.reactivex.functions.Function;
 
 public class NewsRepositoryImpl implements NewsRepository {
 
-    private NewsAPI newsAPI;
+    private NewsService newsService;
 
     private List<Result> results;
 
@@ -34,8 +34,8 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String FILTER_RESULTS = "headline,byline,thumbnail";
 
     @Inject
-    public NewsRepositoryImpl(NewsAPI newsAPI){
-        this.newsAPI = newsAPI;
+    public NewsRepositoryImpl(NewsService newsService){
+        this.newsService = newsService;
         this.results = new ArrayList<>();
     }
 
@@ -62,7 +62,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     public Observable<Result> getNewsDataFromNetwork(Map<String, String> queryParams) {
 
         //Create Observable
-        Observable<NewsSearch> newsApiObservable = newsAPI.getNews(queryParams);
+        Observable<NewsSearch> newsApiObservable = newsService.getNews(queryParams);
 
         return newsApiObservable
                 .concatMap(new Function<NewsSearch, Observable<Response>>() {

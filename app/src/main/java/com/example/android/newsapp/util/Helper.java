@@ -4,5 +4,7 @@ import android.content.Context;
 
 public interface Helper {
 
-    public boolean isOnline(Context context);
+    public boolean isOnline();
+    public String getNoInternetMessage();
+    public String getErrorMessage();
 }

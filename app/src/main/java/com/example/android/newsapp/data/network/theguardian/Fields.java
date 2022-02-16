@@ -17,7 +17,12 @@ public class Fields {
     private String thumbnail;
 
     public String getHeadline() {
-        return headline;
+        if(headline != null){
+            return headline;
+        } else {
+            return "No image available";
+        }
+
     }
 
     public void setHeadline(String headline) {
@@ -25,7 +30,11 @@ public class Fields {
     }
 
     public String getByline() {
-        return byline;
+        if(byline != null){
+            return byline;
+        } else {
+            return "No image available";
+        }
     }
 
     public void setByline(String byline) {

@@ -28,7 +28,7 @@ public class NewsRetrofitModule {
 
     @Singleton
     @Provides
-    public NewsAPI provideNewsService(){
-        return provideRetrofit(BASE_URL).create(NewsAPI.class);
+    public NewsService provideNewsService(){
+        return provideRetrofit(BASE_URL).create(NewsService.class);
     }
 }
