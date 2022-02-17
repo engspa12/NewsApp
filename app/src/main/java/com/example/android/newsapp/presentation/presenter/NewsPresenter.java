@@ -7,5 +7,5 @@ public interface NewsPresenter {
     void setView(NewsView newsView);
     void loadData(String searchTerm, String sortType);
     void rxJavaUnsubscribe();
-
+    void removeView();
 }

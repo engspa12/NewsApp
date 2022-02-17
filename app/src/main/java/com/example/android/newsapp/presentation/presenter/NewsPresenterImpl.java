@@ -24,7 +24,7 @@ public class NewsPresenterImpl implements NewsPresenter {
 
     //Interface View
     @Nullable
-    private NewsView view;
+    private NewsView newsView;
 
     //Interface Model
     private NewsInteractor newsInteractor;
@@ -45,14 +45,14 @@ public class NewsPresenterImpl implements NewsPresenter {
 
     @Override
     public void setView(NewsView view) {
-        this.view = view;
+        this.newsView = view;
     }
 
     @Override
     public void loadData(String searchTerm, String sortType) {
 
         if(helper.isOnline()){
-            if(view != null){
+            if(newsView != null){
                 subscription = newsInteractor.sendData(searchTerm, sortType)
                         .subscribeOn(Schedulers.io())
                         .observeOn(AndroidSchedulers.mainThread())
@@ -98,18 +98,18 @@ public class NewsPresenterImpl implements NewsPresenter {
 
                             @Override
                             public void onError(Throwable e) {
-                                view.showErrorMessage(helper.getErrorMessage());
+                                newsView.showErrorMessage(helper.getErrorMessage());
                                 Log.e(LOG, e.getMessage());
                             }
 
                             @Override
                             public void onComplete() {
-                                view.updateNewsOnScreen(articles);
+                                newsView.updateNewsOnScreen(articles);
                             }
                         });
             }
         } else {
-            view.showErrorMessage(helper.getNoInternetMessage());
+            newsView.showErrorMessage(helper.getNoInternetMessage());
         }
     }
 
@@ -118,5 +118,10 @@ public class NewsPresenterImpl implements NewsPresenter {
         if(subscription != null && !subscription.isDisposed()){
             subscription.dispose();
         }
+    }
+
+    @Override
+    public void removeView(){
+        newsView = null;
     }
 }

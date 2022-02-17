@@ -18,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import dagger.hilt.android.AndroidEntryPoint;
 
 public class WelcomeActivity extends AppCompatActivity {
 

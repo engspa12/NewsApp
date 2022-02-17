@@ -69,9 +69,6 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
 
         if (intent.hasExtra("search")) {
 
-            //Create empty list of articles
-            articles = new ArrayList<>();
-
             //Term to use in the search of news
             searchTerm = intent.getStringExtra("search");
 
@@ -154,6 +151,7 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
         super.onStop();
         //Unsubscribe Disposable
         presenter.rxJavaUnsubscribe();
+        presenter.removeView();
         articles.clear();
     }
 
