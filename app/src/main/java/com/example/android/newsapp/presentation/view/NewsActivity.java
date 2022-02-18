@@ -64,6 +64,10 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        showEmptyView(false);
+        showRecyclerView(false);
+        showProgressBar(true);
+
         //Get intent
         Intent intent = getIntent();
 
@@ -93,9 +97,11 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
 
             //Set Adapter
             recyclerView.setAdapter(adapter);
+            recyclerView.setItemAnimator(null);
         }
 
-
+        presenter.setView(this);
+        presenter.loadData(searchTerm, sortType);
     }
 
     private void showEmptyView(boolean show) {
@@ -139,16 +145,11 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
     @Override
     protected void onResume() {
         super.onResume();
-        showEmptyView(false);
-        showRecyclerView(false);
-        showProgressBar(true);
-        presenter.setView(this);
-        presenter.loadData(searchTerm, sortType);
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         //Unsubscribe Disposable
         presenter.rxJavaUnsubscribe();
         presenter.removeView();
@@ -169,7 +170,6 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
         if (articles != null && !articles.isEmpty()) {
             //Add data to Adapter
             adapter.setData(articles);
-            //adapter.notifyDataSetChanged();
             showEmptyView(false);
             showRecyclerView(true);
         }

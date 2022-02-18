@@ -44,7 +44,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
-    public Observable<Result> getNewsData(String searchTerm, String sortType) {
+    public Observable<List<Result>> getNewsData(String searchTerm, String sortType) {
 
         //Map for querying the API
         Map<String, String> parameters = new HashMap<>();
@@ -59,7 +59,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
-    public Observable<Result> getNewsDataFromNetwork(Map<String, String> queryParams) {
+    public Observable<List<Result>> getNewsDataFromNetwork(Map<String, String> queryParams) {
 
         //Create Observable
         Observable<NewsSearch> newsApiObservable = newsService.getNews(queryParams);
@@ -71,19 +71,20 @@ public class NewsRepositoryImpl implements NewsRepository {
                         return Observable.just(newsSearch.getResponse());
                     }
                 })
-                .concatMap(new Function<Response, Observable<Result>>() {
+                .concatMap(new Function<Response, Observable<List<Result>>>() {
                     @Override
-                    public Observable<Result> apply(Response response) throws Exception {
-                        return Observable.fromIterable(response.getResults());
+                    public Observable<List<Result>> apply(Response response) throws Exception {
+                        results = response.getResults();
+                        return Observable.just(response.getResults());
                     }
                 });
 
     }
 
     @Override
-    public Observable<Result> getNewsDataFromCache() {
+    public Observable<List<Result>> getNewsDataFromCache() {
         if(isUpdated()){
-           return Observable.fromIterable(results);
+           return Observable.just(results);
         } else{
             lastTimeStamp = System.currentTimeMillis();
             results.clear();
