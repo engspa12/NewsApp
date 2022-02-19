@@ -50,7 +50,7 @@ public class NewsActivityTest {
     private Intent intent;
     private ActivityScenario<NewsActivity> scenario;
 
-    @BindValue NewsPresenter newsPresenter = new FakePresenter(new HelperImpl(InstrumentationRegistry.getInstrumentation().getTargetContext()));
+    @BindValue NewsPresenter newsPresenter;
 
     @Rule
     public HiltAndroidRule hiltRule = new HiltAndroidRule(this);
@@ -58,6 +58,8 @@ public class NewsActivityTest {
     @Before
     public void setUp() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+        Helper helper = new HelperImpl(context);
+        newsPresenter = new FakePresenter(helper);
         intent = new Intent(context, NewsActivity.class);
         intent.putExtra("search","Daniel");
         intent.putExtra("sort_type", "relevance");
@@ -86,7 +88,7 @@ public class NewsActivityTest {
         assertEquals(((FakePresenter) newsPresenter).getSortType(),"relevance");
 
         scenario.moveToState(Lifecycle.State.CREATED);
-        assertEquals(2, ((FakePresenter) newsPresenter).getCountCleanResources());
+        assertEquals(0, ((FakePresenter) newsPresenter).getCountCleanResources());
     }
 
     @Test
@@ -107,7 +109,7 @@ public class NewsActivityTest {
         assertEquals(((FakePresenter) newsPresenter).getSortType(),"relevance");
 
         scenario.moveToState(Lifecycle.State.CREATED);
-        assertEquals(2, ((FakePresenter) newsPresenter).getCountCleanResources());
+        assertEquals(0, ((FakePresenter) newsPresenter).getCountCleanResources());
 
     }
 
@@ -126,7 +128,7 @@ public class NewsActivityTest {
         assertEquals(((FakePresenter) newsPresenter).getSortType(),"relevance");
 
         scenario.moveToState(Lifecycle.State.CREATED);
-        assertEquals(2, ((FakePresenter) newsPresenter).getCountCleanResources());
+        assertEquals(0, ((FakePresenter) newsPresenter).getCountCleanResources());
     }
 
     private void errorInResponseFromAPI(){

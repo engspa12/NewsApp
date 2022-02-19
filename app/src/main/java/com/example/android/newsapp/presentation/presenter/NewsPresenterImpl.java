@@ -2,6 +2,8 @@ package com.example.android.newsapp.presentation.presenter;
 
 import android.util.Log;
 
+import androidx.test.espresso.idling.CountingIdlingResource;
+
 import com.example.android.newsapp.data.network.theguardian.Fields;
 import com.example.android.newsapp.data.network.theguardian.Result;
 import com.example.android.newsapp.domain.interactor.NewsInteractor;
@@ -31,10 +33,12 @@ public class NewsPresenterImpl implements NewsPresenter {
     //Interface Interactor
     private NewsInteractor newsInteractor;
     private Disposable subscription;
+    private CountingIdlingResource countingIdlingResource;
 
     @Inject
-    public NewsPresenterImpl(NewsInteractor newsInteractor) {
+    public NewsPresenterImpl(NewsInteractor newsInteractor, CountingIdlingResource countingIdlingResource) {
         this.newsInteractor = newsInteractor;
+        this.countingIdlingResource = countingIdlingResource;
     }
 
     private static final String LOG = NewsPresenterImpl.class.getSimpleName();
@@ -48,6 +52,8 @@ public class NewsPresenterImpl implements NewsPresenter {
     @Override
     public void loadData(String searchTerm, String sortType) {
 
+        incrementIdlingResource();
+
         if (newsView != null) {
             subscription = newsInteractor.getData(searchTerm, sortType)
                     .subscribe(new Consumer<UIStateModel<List<Article>>>() {
@@ -58,15 +64,29 @@ public class NewsPresenterImpl implements NewsPresenter {
                             } else {
                                 newsView.updateNewsOnScreen(uiStateModel.getValue());
                             }
+                            decrementIdlingResource();
                         }
                     }, new Consumer<Throwable>() {
                         @Override
                         public void accept(Throwable throwable) throws Exception {
                             newsView.showErrorMessage(throwable.getMessage());
+                            decrementIdlingResource();
                         }
                     });
         }
 
+    }
+
+    private void incrementIdlingResource(){
+        if(countingIdlingResource != null){
+            countingIdlingResource.increment();
+        }
+    }
+
+    private void decrementIdlingResource(){
+        if(countingIdlingResource != null){
+            countingIdlingResource.decrement();
+        }
     }
 
     @Override

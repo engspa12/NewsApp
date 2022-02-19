@@ -2,7 +2,7 @@
     <!--App name-->
     <string name="app_name">NewsApp</string>
     <!--Welcome message for main screen-->
-    <string name="welcome_message">Welcome to the News App</string>
+    <string name="welcome_message">Welcome to News App</string>
     <!--Instructions in main screen-->
     <string name="instructions">Enter a key word in the text field and tap on the Search News button to look for related news</string>
     <!--Text for search button-->
