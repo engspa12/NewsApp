@@ -7,7 +7,7 @@ import androidx.test.runner.AndroidJUnitRunner;
 
 import dagger.hilt.android.testing.HiltTestApplication;
 
-public final class HiltTestRunner extends AndroidJUnitRunner {
+public final class  HiltTestRunner extends AndroidJUnitRunner {
     @Override
     public Application newApplication(ClassLoader cl, String appName, Context context)
             throws ClassNotFoundException, IllegalAccessException, InstantiationException {

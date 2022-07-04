@@ -54,7 +54,8 @@ public class NavigationTest {
     public void setUp(){
         hiltRule.inject();
         countingIdlingResource = new CountingIdlingResource("ArticlesAPICalls");
-        newsPresenter = new NewsPresenterImpl(newsInteractor, countingIdlingResource);
+        newsPresenter = new NewsPresenterImpl(newsInteractor);
+        newsPresenter.setIdlingResource(countingIdlingResource);
         IdlingRegistry.getInstance().register(countingIdlingResource);
     }
 

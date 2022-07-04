@@ -1,10 +1,9 @@
 package com.example.android.newsapp.domain.interactor;
 
 import com.example.android.newsapp.data.network.theguardian.Fields;
-import com.example.android.newsapp.data.network.theguardian.Result;
 import com.example.android.newsapp.domain.model.Article;
 import com.example.android.newsapp.domain.repository.NewsRepository;
-import com.example.android.newsapp.presentation.UIStateModel;
+import com.example.android.newsapp.util.Result;
 import com.example.android.newsapp.util.Helper;
 
 import java.util.ArrayList;
@@ -29,18 +28,18 @@ public class NewsInteractorImpl implements NewsInteractor {
     }
 
     @Override
-    public Observable<UIStateModel<List<Article>>> getData(String searchTerm, String sortType) {
+    public Observable<Result<List<Article>>> getData(String searchTerm, String sortType) {
 
         List<Article> articles = new ArrayList<>();
 
         if(helper.isOnline()){
             return newsRepository.getNewsData(searchTerm,sortType)
                     .subscribeOn(Schedulers.io())
-                    .map(new Function<List<Result>, UIStateModel<List<Article>>>() {
+                    .map(new Function<List<com.example.android.newsapp.data.network.theguardian.Result>, Result<List<Article>>>() {
                         @Override
-                        public UIStateModel<List<Article>> apply(List<Result> results) throws Exception {
+                        public Result<List<Article>> apply(List<com.example.android.newsapp.data.network.theguardian.Result> results) throws Exception {
 
-                            for (Result result: results) {
+                            for (com.example.android.newsapp.data.network.theguardian.Result result: results) {
                                 String sectionName = result.getSectionName();
                                 String webUrl = result.getWebUrl();
                                 String publicationDate = result.getWebPublicationDate().substring(0, 10);
@@ -77,18 +76,18 @@ public class NewsInteractorImpl implements NewsInteractor {
 
                             }
 
-                            return new UIStateModel<>(articles, false, null);
+                            return new Result<>(articles, false, null);
                         }
                     })
-                    .onErrorReturn(new Function<Throwable, UIStateModel<List<Article>>>() {
+                    .onErrorReturn(new Function<Throwable, Result<List<Article>>>() {
                         @Override
-                        public UIStateModel<List<Article>> apply(Throwable throwable) throws Exception {
-                            return new UIStateModel<>(articles, true, helper.getErrorMessage());
+                        public Result<List<Article>> apply(Throwable throwable) throws Exception {
+                            return new Result<>(articles, true, helper.getErrorMessage());
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread());
         } else {
-            UIStateModel<List<Article>> uiStateModel = new UIStateModel<List<Article>>(articles, true, helper.getNoInternetMessage());
+            Result<List<Article>> uiStateModel = new Result<List<Article>>(articles, true, helper.getNoInternetMessage());
             return Observable.just(uiStateModel);
         }
     }

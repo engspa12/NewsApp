@@ -16,6 +16,7 @@ import android.util.Log;
 
 import androidx.lifecycle.Lifecycle;
 import androidx.test.core.app.ActivityScenario;
+import androidx.test.espresso.idling.CountingIdlingResource;
 import androidx.test.filters.LargeTest;
 import androidx.test.platform.app.InstrumentationRegistry;
 
@@ -199,6 +200,11 @@ public class NewsActivityTest {
             newsView = null;
         }
 
+        @Override
+        public void setIdlingResource(CountingIdlingResource countingIdlingResource) {
+            //no-opt
+        }
+
         public int getCountCleanResources(){
             return counterCleanResources;
         }
@@ -210,5 +216,7 @@ public class NewsActivityTest {
         public String getSortType(){
             return sortType;
         }
+
+
     }
 }

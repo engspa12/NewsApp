@@ -1,12 +1,12 @@
-package com.example.android.newsapp.presentation;
+package com.example.android.newsapp.util;
 
-public class UIStateModel<T> {
+public class Result<T> {
 
     private final T value;
     private final String errorMessage;
     private final boolean errorPresent;
 
-    public UIStateModel(T value, boolean errorPresent, String errorMessage){
+    public Result(T value, boolean errorPresent, String errorMessage){
         this.value = value;
         this.errorPresent = errorPresent;
         this.errorMessage = errorMessage;
