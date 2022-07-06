@@ -1,9 +1,13 @@
 package com.example.android.newsapp.domain.interactor;
 
-import com.example.android.newsapp.data.network.theguardian.Fields;
-import com.example.android.newsapp.domain.model.Article;
+import android.util.Log;
+
+import com.example.android.newsapp.data.network.response.ArticleNetwork;
+import com.example.android.newsapp.data.network.response.Fields;
+import com.example.android.newsapp.domain.model.ArticleDomain;
 import com.example.android.newsapp.domain.repository.NewsRepository;
-import com.example.android.newsapp.util.Result;
+import com.example.android.newsapp.domain.helper.ResultDomain;
+import com.example.android.newsapp.presentation.model.ArticleView;
 import com.example.android.newsapp.util.Helper;
 
 import java.util.ArrayList;
@@ -28,67 +32,42 @@ public class NewsInteractorImpl implements NewsInteractor {
     }
 
     @Override
-    public Observable<Result<List<Article>>> getData(String searchTerm, String sortType) {
+    public Observable<ResultDomain<List<ArticleView>>> getData(String searchTerm, String sortType) {
 
-        List<Article> articles = new ArrayList<>();
+        List<ArticleView> articles = new ArrayList<>();
 
         if(helper.isOnline()){
             return newsRepository.getNewsData(searchTerm,sortType)
                     .subscribeOn(Schedulers.io())
-                    .map(new Function<List<com.example.android.newsapp.data.network.theguardian.Result>, Result<List<Article>>>() {
+                    .map(new Function<List<ArticleDomain>, ResultDomain<List<ArticleView>>>() {
                         @Override
-                        public Result<List<Article>> apply(List<com.example.android.newsapp.data.network.theguardian.Result> results) throws Exception {
+                        public ResultDomain<List<ArticleView>> apply(List<ArticleDomain> domainItems) throws Exception {
 
-                            for (com.example.android.newsapp.data.network.theguardian.Result result: results) {
-                                String sectionName = result.getSectionName();
-                                String webUrl = result.getWebUrl();
-                                String publicationDate = result.getWebPublicationDate().substring(0, 10);
-                                String webTitle;
-                                String author;
-                                String thumbnailUrl;
+                            for (ArticleDomain domainItem: domainItems) {
+                                String sectionName = domainItem.getSectionName();
+                                String webUrl = domainItem.getWebUrl();
+                                String publicationDate = domainItem.getReleaseDate();
+                                String webTitle = domainItem.getTitle();
+                                String author = domainItem.getAuthor();
+                                String thumbnailUrl = domainItem.getThumbnailUrl();
 
-                                try {
-                                    Fields fields = result.getFields();
-                                    try {
-                                        author = fields.getByline();
-                                    } catch (Exception e) {
-                                        author = "unknown author";
-                                    }
-
-                                    try {
-                                        webTitle = fields.getHeadline();
-                                    } catch (Exception e) {
-                                        webTitle = "Unknown title";
-                                    }
-
-                                    try {
-                                        thumbnailUrl = fields.getThumbnail();
-                                    } catch (Exception e) {
-                                        thumbnailUrl = "No image available";
-                                    }
-                                } catch (Exception e) {
-                                    author = "unknown author";
-                                    webTitle = "Unknown title";
-                                    thumbnailUrl = "No image available";
-                                }
-
-                                articles.add(new Article(webTitle, sectionName, author, publicationDate, webUrl, thumbnailUrl));
-
+                                articles.add(new ArticleView(webTitle, sectionName, author, publicationDate, webUrl, thumbnailUrl));
                             }
 
-                            return new Result<>(articles, false, null);
+                            return new ResultDomain<>(articles, false, null);
                         }
                     })
-                    .onErrorReturn(new Function<Throwable, Result<List<Article>>>() {
+                    .onErrorReturn(new Function<Throwable, ResultDomain<List<ArticleView>>>() {
                         @Override
-                        public Result<List<Article>> apply(Throwable throwable) throws Exception {
-                            return new Result<>(articles, true, helper.getErrorMessage());
+                        public ResultDomain<List<ArticleView>> apply(Throwable throwable) throws Exception {
+                            Log.e("NewsInteractorImpl", throwable.getMessage());
+                            return new ResultDomain<>(articles, true, helper.getErrorMessage());
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread());
         } else {
-            Result<List<Article>> uiStateModel = new Result<List<Article>>(articles, true, helper.getNoInternetMessage());
-            return Observable.just(uiStateModel);
+            ResultDomain<List<ArticleView>> listArticles = new ResultDomain<List<ArticleView>>(articles, true, helper.getNoInternetMessage());
+            return Observable.just(listArticles);
         }
     }
 }

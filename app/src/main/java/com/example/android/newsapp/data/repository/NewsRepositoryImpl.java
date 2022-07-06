@@ -1,10 +1,12 @@
 package com.example.android.newsapp.data.repository;
 
 import com.example.android.newsapp.BuildConfig;
-import com.example.android.newsapp.data.network.NewsService;
-import com.example.android.newsapp.data.network.theguardian.NewsSearch;
-import com.example.android.newsapp.data.network.theguardian.Response;
-import com.example.android.newsapp.data.network.theguardian.Result;
+import com.example.android.newsapp.data.network.datasource.NewsService;
+import com.example.android.newsapp.data.network.response.NewsSearch;
+import com.example.android.newsapp.data.network.response.Response;
+import com.example.android.newsapp.data.network.response.ArticleNetwork;
+import com.example.android.newsapp.domain.helper.NetworkMapper;
+import com.example.android.newsapp.domain.model.ArticleDomain;
 import com.example.android.newsapp.domain.repository.NewsRepository;
 
 import java.util.ArrayList;
@@ -15,13 +17,16 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.functions.Function;
 
 public class NewsRepositoryImpl implements NewsRepository {
 
-    private NewsService newsService;
+    private final NewsService newsService;
+    private final NetworkMapper<ArticleNetwork, ArticleDomain> networkMapper;
 
-    private List<Result> results;
+    /*Simulate the data in Cache*/
+    private List<ArticleNetwork> results;
 
     private long lastTimeStamp;
 
@@ -34,8 +39,9 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String FILTER_RESULTS = "headline,byline,thumbnail";
 
     @Inject
-    public NewsRepositoryImpl(NewsService newsService){
+    public NewsRepositoryImpl(NewsService newsService, NetworkMapper<ArticleNetwork, ArticleDomain> networkMapper){
         this.newsService = newsService;
+        this.networkMapper = networkMapper;
         this.results = new ArrayList<>();
     }
 
@@ -44,7 +50,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     }
 
     @Override
-    public Observable<List<Result>> getNewsData(String searchTerm, String sortType) {
+    public Observable<List<ArticleDomain>> getNewsData(String searchTerm, String sortType) {
 
         //Map for querying the API
         Map<String, String> parameters = new HashMap<>();
@@ -55,11 +61,21 @@ public class NewsRepositoryImpl implements NewsRepository {
         parameters.put("page-size", NUMBER_OF_ARTICLES);
         parameters.put("api-key", API_KEY);
 
-        return getNewsDataFromCache().switchIfEmpty(getNewsDataFromNetwork(parameters));
+        return getNewsDataFromCache().switchIfEmpty(getNewsDataFromNetwork(parameters)).concatMap(new Function<List<ArticleNetwork>, ObservableSource<? extends List<ArticleDomain>>>() {
+            @Override
+            public ObservableSource<? extends List<ArticleDomain>> apply(List<ArticleNetwork> articleNetworkItems) throws Exception {
+
+                List<ArticleDomain> tempList = new ArrayList<>();
+
+                for(ArticleNetwork item: articleNetworkItems){
+                    tempList.add(networkMapper.mapToDomainModel(item));
+                }
+                return Observable.just(tempList);
+            }
+        });
     }
 
-    @Override
-    public Observable<List<Result>> getNewsDataFromNetwork(Map<String, String> queryParams) {
+    private Observable<List<ArticleNetwork>> getNewsDataFromNetwork(Map<String, String> queryParams) {
 
         //Create Observable
         Observable<NewsSearch> newsApiObservable = newsService.getNews(queryParams);
@@ -71,9 +87,9 @@ public class NewsRepositoryImpl implements NewsRepository {
                         return Observable.just(newsSearch.getResponse());
                     }
                 })
-                .concatMap(new Function<Response, Observable<List<Result>>>() {
+                .concatMap(new Function<Response, Observable<List<ArticleNetwork>>>() {
                     @Override
-                    public Observable<List<Result>> apply(Response response) throws Exception {
+                    public Observable<List<ArticleNetwork>> apply(Response response) throws Exception {
                         results = response.getResults();
                         return Observable.just(response.getResults());
                     }
@@ -81,8 +97,7 @@ public class NewsRepositoryImpl implements NewsRepository {
 
     }
 
-    @Override
-    public Observable<List<Result>> getNewsDataFromCache() {
+    private Observable<List<ArticleNetwork>> getNewsDataFromCache() {
         if(isUpdated()){
            return Observable.just(results);
         } else{

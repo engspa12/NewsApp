@@ -3,7 +3,7 @@ package com.example.android.newsapp.presentation.presenter;
 import androidx.annotation.VisibleForTesting;
 import androidx.test.espresso.idling.CountingIdlingResource;
 
-import com.example.android.newsapp.presentation.view.NewsView;
+import com.example.android.newsapp.presentation.view.contract.NewsView;
 
 public interface NewsPresenter {
 

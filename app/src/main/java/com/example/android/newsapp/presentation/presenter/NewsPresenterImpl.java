@@ -4,9 +4,10 @@ import androidx.annotation.VisibleForTesting;
 import androidx.test.espresso.idling.CountingIdlingResource;
 
 import com.example.android.newsapp.domain.interactor.NewsInteractor;
-import com.example.android.newsapp.domain.model.Article;
-import com.example.android.newsapp.util.Result;
-import com.example.android.newsapp.presentation.view.NewsView;
+import com.example.android.newsapp.domain.model.ArticleDomain;
+import com.example.android.newsapp.domain.helper.ResultDomain;
+import com.example.android.newsapp.presentation.model.ArticleView;
+import com.example.android.newsapp.presentation.view.contract.NewsView;
 
 import java.util.List;
 
@@ -47,13 +48,13 @@ public class NewsPresenterImpl implements NewsPresenter {
 
         if (newsView != null) {
             subscription = newsInteractor.getData(searchTerm, sortType)
-                    .subscribe(new Consumer<Result<List<Article>>>() {
+                    .subscribe(new Consumer<ResultDomain<List<ArticleView>>>() {
                         @Override
-                        public void accept(Result<List<Article>> uiStateModel) throws Exception {
-                            if(uiStateModel.getErrorPresent()){
-                                newsView.showErrorMessage(uiStateModel.getErrorMessage());
+                        public void accept(ResultDomain<List<ArticleView>> listArticles) throws Exception {
+                            if(listArticles.getErrorPresent()){
+                                newsView.showErrorMessage(listArticles.getErrorMessage());
                             } else {
-                                newsView.updateNewsOnScreen(uiStateModel.getValue());
+                                newsView.updateNewsOnScreen(listArticles.getValue());
                             }
                             decrementIdlingResource();
                         }

@@ -15,7 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.android.newsapp.R;
-import com.example.android.newsapp.domain.model.Article;
+import com.example.android.newsapp.domain.model.ArticleDomain;
+import com.example.android.newsapp.presentation.model.ArticleView;
 
 import java.util.List;
 
@@ -28,9 +29,9 @@ import butterknife.ButterKnife;
 
 public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder> {
 
-    private List<Article> mArticlesList;
+    private List<ArticleView> mArticlesList;
 
-    public ArticleAdapter(List<Article> list) {
+    public ArticleAdapter(List<ArticleView> list) {
         this.mArticlesList = list;
     }
 
@@ -46,9 +47,9 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
     @Override
     public void onBindViewHolder(@NonNull ArticleViewHolder holder, int position) {
 
-        Article currentArticle = mArticlesList.get(holder.getAbsoluteAdapterPosition());
+        ArticleView currentArticle = mArticlesList.get(holder.getAbsoluteAdapterPosition());
 
-        //Get data from the Article object
+        //Get data from the ArticleDomain object
         String author = currentArticle.getAuthor();
         String sectionName = currentArticle.getSectionName();
         String title = currentArticle.getTitle();
@@ -104,7 +105,7 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
         holder.itemView.setOnClickListener(view -> {
             //Get article URL
-            Article article = (Article) mArticlesList.get(position);
+            ArticleView article = mArticlesList.get(position);
             String url = article.getWebUrl();
             Uri webPage = Uri.parse(url);
 
@@ -116,8 +117,8 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
         });
     }
 
-    public void setData(List<Article> newList){
-        List<Article> oldList = mArticlesList;
+    public void setData(List<ArticleView> newList){
+        List<ArticleView> oldList = mArticlesList;
         DiffUtil.DiffResult diffResult = DiffUtil.calculateDiff(
                 new ArticleDiffCallback(
                         oldList,
@@ -159,10 +160,10 @@ public class ArticleAdapter extends RecyclerView.Adapter<ArticleAdapter.ArticleV
 
     public static class ArticleDiffCallback extends DiffUtil.Callback {
 
-        List<Article> oldList;
-        List<Article> newList;
+        List<ArticleView> oldList;
+        List<ArticleView> newList;
 
-        public ArticleDiffCallback(List<Article> oldList, List<Article> newList) {
+        public ArticleDiffCallback(List<ArticleView> oldList, List<ArticleView> newList) {
             this.oldList = oldList;
             this.newList = newList;
         }

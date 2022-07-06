@@ -1,10 +1,10 @@
 
-package com.example.android.newsapp.data.network.theguardian;
+package com.example.android.newsapp.data.network.response;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Result {
+public class ArticleNetwork {
 
     @SerializedName("id")
     @Expose

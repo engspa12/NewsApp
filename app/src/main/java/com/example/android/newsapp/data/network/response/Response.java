@@ -1,5 +1,5 @@
 
-package com.example.android.newsapp.data.network.theguardian;
+package com.example.android.newsapp.data.network.response;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
@@ -33,7 +33,7 @@ public class Response {
     private String orderBy;
     @SerializedName("results")
     @Expose
-    private List<Result> results = null;
+    private List<ArticleNetwork> results = null;
 
     public String getStatus() {
         return status;
@@ -99,11 +99,11 @@ public class Response {
         this.orderBy = orderBy;
     }
 
-    public List<Result> getResults() {
+    public List<ArticleNetwork> getResults() {
         return results;
     }
 
-    public void setResults(List<Result> results) {
+    public void setResults(List<ArticleNetwork> results) {
         this.results = results;
     }
 

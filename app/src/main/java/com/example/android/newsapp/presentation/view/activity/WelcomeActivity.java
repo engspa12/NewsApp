@@ -1,4 +1,4 @@
-package com.example.android.newsapp.presentation.view;
+package com.example.android.newsapp.presentation.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,18 +7,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.example.android.newsapp.R;
 import com.google.android.material.snackbar.Snackbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import dagger.hilt.android.AndroidEntryPoint;
 
 public class WelcomeActivity extends AppCompatActivity {
 

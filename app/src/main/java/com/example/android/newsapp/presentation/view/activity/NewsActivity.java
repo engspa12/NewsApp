@@ -1,4 +1,4 @@
-package com.example.android.newsapp.presentation.view;
+package com.example.android.newsapp.presentation.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.android.newsapp.R;
-import com.example.android.newsapp.domain.model.Article;
+import com.example.android.newsapp.domain.model.ArticleDomain;
+import com.example.android.newsapp.presentation.model.ArticleView;
 import com.example.android.newsapp.presentation.presenter.NewsPresenter;
+import com.example.android.newsapp.presentation.view.contract.NewsView;
 import com.example.android.newsapp.presentation.view.adapter.ArticleAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -53,7 +55,7 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
 
     private String sortType;
 
-    private List<Article> articles = new ArrayList<>();
+    private List<ArticleView> articles = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +159,7 @@ public class NewsActivity extends AppCompatActivity implements NewsView {
     }
 
     @Override
-    public void updateNewsOnScreen(List<Article> list) {
+    public void updateNewsOnScreen(List<ArticleView> list) {
 
         articles = list;
 

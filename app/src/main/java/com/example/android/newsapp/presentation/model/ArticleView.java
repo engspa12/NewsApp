@@ -1,9 +1,10 @@
-package com.example.android.newsapp.domain.model;
-
+package com.example.android.newsapp.presentation.model;
 
 import androidx.annotation.Nullable;
 
-public class Article {
+import com.example.android.newsapp.domain.model.ArticleDomain;
+
+public class ArticleView {
 
     //Instance Variables
     private String title;
@@ -13,8 +14,7 @@ public class Article {
     private String webUrl;
     private String thumbnailUrl;
 
-    //Constructor of Article
-    public Article(String articleTitle, String sectionName, String author, String date,String webUrl,String thumbnailUrl){
+    public ArticleView(String articleTitle, String sectionName, String author, String date, String webUrl, String thumbnailUrl){
         this.title = articleTitle;
         this.sectionName = sectionName;
         this.author = author;
@@ -23,52 +23,29 @@ public class Article {
         this.thumbnailUrl = thumbnailUrl;
     }
 
-    /**
-     * Getter method for the title of the article
-     *
-     * @return title of the article
-     */
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
-    /**
-     * Getter method for the section name of the article
-     *
-     * @return section name of the article
-     */
-    public String getSectionName(){
+    public String getSectionName() {
         return sectionName;
     }
 
-    /**
-     * Getter method for the author of the article
-     *
-     * @return author of the article
-     */
-    public String getAuthor(){
+    public String getAuthor() {
         return author;
     }
 
-    /**
-     * Getter method for the date of the article
-     *
-     * @return published date of the article
-     */
-    public String getReleaseDate(){
+    public String getReleaseDate() {
         return releaseDate;
     }
 
-    /**
-     * Getter method for the url of the article
-     *
-     * @return url of the article
-     */
-    public String getWebUrl(){
+    public String getWebUrl() {
         return webUrl;
     }
 
-    public String getThumbnailUrl(){return thumbnailUrl;}
+    public String getThumbnailUrl() {
+        return thumbnailUrl;
+    }
 
     @Override
     public boolean equals(@Nullable Object obj) {
@@ -77,7 +54,7 @@ public class Article {
             return false;
         }
 
-        Article objArticle = (Article) obj;
+        ArticleView objArticle = (ArticleView) obj;
 
         if(!title.equals(objArticle.title)){
             return false;

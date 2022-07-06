@@ -1,12 +1,12 @@
-package com.example.android.newsapp.util;
+package com.example.android.newsapp.domain.helper;
 
-public class Result<T> {
+public class ResultDomain<T> {
 
     private final T value;
     private final String errorMessage;
     private final boolean errorPresent;
 
-    public Result(T value, boolean errorPresent, String errorMessage){
+    public ResultDomain(T value, boolean errorPresent, String errorMessage){
         this.value = value;
         this.errorPresent = errorPresent;
         this.errorMessage = errorMessage;

@@ -22,8 +22,11 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.android.newsapp.R;
 import com.example.android.newsapp.di.PresenterModule;
-import com.example.android.newsapp.domain.model.Article;
+import com.example.android.newsapp.domain.model.ArticleDomain;
+import com.example.android.newsapp.presentation.model.ArticleView;
 import com.example.android.newsapp.presentation.presenter.NewsPresenter;
+import com.example.android.newsapp.presentation.view.activity.NewsActivity;
+import com.example.android.newsapp.presentation.view.contract.NewsView;
 import com.example.android.newsapp.util.Helper;
 import com.example.android.newsapp.util.HelperImpl;
 
@@ -175,14 +178,14 @@ public class NewsActivityTest {
             } else if(errorResponse) {
                 newsView.showErrorMessage(helper.getErrorMessage());
             } else {
-                List<Article> listArticles = new ArrayList<Article>();
-                listArticles.add(new Article("article title 1", "article section 1", "author 1", "date 1", "https://www.google.com", null));
-                listArticles.add(new Article("article title 2", "article section 2", "author 2", "date 2", "https://www.google.com", null));
-                listArticles.add(new Article("article title 3", "article section 3", "author 3", "date 3", "https://www.google.com", null));
-                listArticles.add(new Article("article title 4", "article section 4", "author 4", "date 4", "https://www.google.com", null));
-                listArticles.add(new Article("article title 5", "article section 5", "author 5", "date 5", "https://www.google.com", null));
-                listArticles.add(new Article("article title 6", "article section 6", "author 6", "date 6", "https://www.google.com", null));
-                listArticles.add(new Article("article title 7", "article section 7", "author 7", "date 7", "https://www.google.com", null));
+                List<ArticleView> listArticles = new ArrayList<ArticleView>();
+                listArticles.add(new ArticleView("article title 1", "article section 1", "author 1", "date 1", "https://www.google.com", null));
+                listArticles.add(new ArticleView("article title 2", "article section 2", "author 2", "date 2", "https://www.google.com", null));
+                listArticles.add(new ArticleView("article title 3", "article section 3", "author 3", "date 3", "https://www.google.com", null));
+                listArticles.add(new ArticleView("article title 4", "article section 4", "author 4", "date 4", "https://www.google.com", null));
+                listArticles.add(new ArticleView("article title 5", "article section 5", "author 5", "date 5", "https://www.google.com", null));
+                listArticles.add(new ArticleView("article title 6", "article section 6", "author 6", "date 6", "https://www.google.com", null));
+                listArticles.add(new ArticleView("article title 7", "article section 7", "author 7", "date 7", "https://www.google.com", null));
                 newsView.updateNewsOnScreen(listArticles);
             }
 

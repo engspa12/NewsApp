@@ -1,4 +1,6 @@
-package com.example.android.newsapp.data.network;
+package com.example.android.newsapp.di;
+
+import com.example.android.newsapp.data.network.datasource.NewsService;
 
 import javax.inject.Singleton;
 

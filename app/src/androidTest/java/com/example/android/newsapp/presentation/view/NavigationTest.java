@@ -13,13 +13,13 @@ import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.IdlingRegistry;
 import androidx.test.espresso.idling.CountingIdlingResource;
 import androidx.test.filters.LargeTest;
-import androidx.test.filters.MediumTest;
 
 import com.example.android.newsapp.R;
 import com.example.android.newsapp.di.PresenterModule;
 import com.example.android.newsapp.domain.interactor.NewsInteractor;
 import com.example.android.newsapp.presentation.presenter.NewsPresenter;
 import com.example.android.newsapp.presentation.presenter.NewsPresenterImpl;
+import com.example.android.newsapp.presentation.view.activity.WelcomeActivity;
 
 import org.junit.After;
 import org.junit.Before;

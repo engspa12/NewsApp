@@ -12,13 +12,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".presentation.view.NewsActivity"
-            android:parentActivityName=".presentation.view.WelcomeActivity">
+            android:name=".presentation.view.activity.NewsActivity"
+            android:parentActivityName=".presentation.view.activity.WelcomeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.android.newsapp.presentation.view.WelcomeActivity" />
+                android:value="com.example.android.newsapp.presentation.view.activity.WelcomeActivity" />
         </activity>
-        <activity android:name=".presentation.view.WelcomeActivity"
+        <activity android:name=".presentation.view.activity.WelcomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
