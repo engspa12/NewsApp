@@ -1,6 +1,5 @@
 package com.example.android.newsapp.domain.repository;
 
-import com.example.android.newsapp.data.network.response.ArticleNetwork;
 import com.example.android.newsapp.domain.model.ArticleDomain;
 
 import java.util.List;

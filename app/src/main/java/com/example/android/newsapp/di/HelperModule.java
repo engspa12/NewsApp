@@ -3,8 +3,8 @@ package com.example.android.newsapp.di;
 
 import android.content.Context;
 
-import com.example.android.newsapp.util.Helper;
-import com.example.android.newsapp.util.HelperImpl;
+import com.example.android.newsapp.util.FrameworkHelper;
+import com.example.android.newsapp.util.FrameworkHelperImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -17,8 +17,8 @@ import dagger.hilt.components.SingletonComponent;
 public class HelperModule {
 
     @Provides
-    public Helper getHelper(
+    public FrameworkHelper getHelper(
             @ApplicationContext Context appContext) {
-        return new HelperImpl(appContext);
+        return new FrameworkHelperImpl(appContext);
     }
 }

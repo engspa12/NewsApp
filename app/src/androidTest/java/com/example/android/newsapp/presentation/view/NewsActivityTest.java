@@ -22,13 +22,12 @@ import androidx.test.platform.app.InstrumentationRegistry;
 
 import com.example.android.newsapp.R;
 import com.example.android.newsapp.di.PresenterModule;
-import com.example.android.newsapp.domain.model.ArticleDomain;
 import com.example.android.newsapp.presentation.model.ArticleView;
 import com.example.android.newsapp.presentation.presenter.NewsPresenter;
 import com.example.android.newsapp.presentation.view.activity.NewsActivity;
 import com.example.android.newsapp.presentation.view.contract.NewsView;
-import com.example.android.newsapp.util.Helper;
-import com.example.android.newsapp.util.HelperImpl;
+import com.example.android.newsapp.util.FrameworkHelper;
+import com.example.android.newsapp.util.FrameworkHelperImpl;
 
 import org.junit.After;
 import org.junit.Before;
@@ -62,8 +61,8 @@ public class NewsActivityTest {
     @Before
     public void setUp() {
         context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        Helper helper = new HelperImpl(context);
-        newsPresenter = new FakePresenter(helper);
+        FrameworkHelper frameworkHelper = new FrameworkHelperImpl(context);
+        newsPresenter = new FakePresenter(frameworkHelper);
         intent = new Intent(context, NewsActivity.class);
         intent.putExtra("search","Daniel");
         intent.putExtra("sort_type", "relevance");
@@ -155,13 +154,13 @@ public class NewsActivityTest {
         private final String LOG = FakePresenter.class.getName();
 
         private NewsView newsView;
-        private final Helper helper;
+        private final FrameworkHelper frameworkHelper;
         private int counterCleanResources = 0;
         private String sortType = "";
         private String searchTerm = "";
 
-        public FakePresenter(Helper helper){
-            this.helper = helper;
+        public FakePresenter(FrameworkHelper frameworkHelper){
+            this.frameworkHelper = frameworkHelper;
         }
 
         @Override
@@ -174,9 +173,9 @@ public class NewsActivityTest {
             this.searchTerm = searchTerm;
             this.sortType = sortType;
             if (noInternetConnection) {
-                newsView.showErrorMessage(helper.getNoInternetMessage());
+                newsView.showErrorMessage(frameworkHelper.getNoInternetMessage());
             } else if(errorResponse) {
-                newsView.showErrorMessage(helper.getErrorMessage());
+                newsView.showErrorMessage(frameworkHelper.getErrorMessage());
             } else {
                 List<ArticleView> listArticles = new ArrayList<ArticleView>();
                 listArticles.add(new ArticleView("article title 1", "article section 1", "author 1", "date 1", "https://www.google.com", null));

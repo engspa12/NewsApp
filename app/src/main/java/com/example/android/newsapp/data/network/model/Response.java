@@ -1,5 +1,5 @@
 
-package com.example.android.newsapp.data.network.response;
+package com.example.android.newsapp.data.network.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;

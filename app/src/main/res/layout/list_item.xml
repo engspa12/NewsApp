@@ -27,10 +27,10 @@
             android:id="@+id/title_article"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:fontFamily="@font/shortstack_regular"
             android:padding="12dp"
             android:textSize="12sp"
             android:textStyle="bold"
+            app:fontFamily="@font/shortstack_regular"
             tools:text="Title" />
 
 

@@ -1,6 +1,8 @@
-package com.example.android.newsapp.data.network.response;
+package com.example.android.newsapp.data.network.mapper;
 
-import com.example.android.newsapp.domain.helper.NetworkMapper;
+import com.example.android.newsapp.data.network.model.ArticleNetwork;
+import com.example.android.newsapp.data.network.model.Fields;
+import com.example.android.newsapp.data.helper.NetworkMapper;
 import com.example.android.newsapp.domain.model.ArticleDomain;
 
 public class ArticleNetworkMapper implements NetworkMapper<ArticleNetwork, ArticleDomain> {

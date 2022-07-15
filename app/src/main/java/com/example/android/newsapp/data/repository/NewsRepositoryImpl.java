@@ -2,10 +2,10 @@ package com.example.android.newsapp.data.repository;
 
 import com.example.android.newsapp.BuildConfig;
 import com.example.android.newsapp.data.network.datasource.NewsService;
-import com.example.android.newsapp.data.network.response.NewsSearch;
-import com.example.android.newsapp.data.network.response.Response;
-import com.example.android.newsapp.data.network.response.ArticleNetwork;
-import com.example.android.newsapp.domain.helper.NetworkMapper;
+import com.example.android.newsapp.data.network.model.NewsSearch;
+import com.example.android.newsapp.data.network.model.Response;
+import com.example.android.newsapp.data.network.model.ArticleNetwork;
+import com.example.android.newsapp.data.helper.NetworkMapper;
 import com.example.android.newsapp.domain.model.ArticleDomain;
 import com.example.android.newsapp.domain.repository.NewsRepository;
 

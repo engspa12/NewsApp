@@ -1,6 +1,6 @@
 package com.example.android.newsapp.data.network.datasource;
 
-import com.example.android.newsapp.data.network.response.NewsSearch;
+import com.example.android.newsapp.data.network.model.NewsSearch;
 
 import java.util.Map;
 

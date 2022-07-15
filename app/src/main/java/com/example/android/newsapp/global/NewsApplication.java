@@ -1,4 +1,4 @@
-package com.example.android.newsapp.root;
+package com.example.android.newsapp.global;
 
 import android.app.Application;
 import android.content.Context;

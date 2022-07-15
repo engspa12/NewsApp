@@ -8,12 +8,12 @@ import com.example.android.newsapp.R;
 
 import javax.inject.Inject;
 
-public class HelperImpl implements Helper {
+public class FrameworkHelperImpl implements FrameworkHelper {
 
     private Context context;
 
     @Inject
-    public HelperImpl(Context context){
+    public FrameworkHelperImpl(Context context){
         this.context = context;
     }
 

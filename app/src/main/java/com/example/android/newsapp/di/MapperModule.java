@@ -1,8 +1,8 @@
 package com.example.android.newsapp.di;
 
-import com.example.android.newsapp.data.network.response.ArticleNetwork;
-import com.example.android.newsapp.data.network.response.ArticleNetworkMapper;
-import com.example.android.newsapp.domain.helper.NetworkMapper;
+import com.example.android.newsapp.data.network.model.ArticleNetwork;
+import com.example.android.newsapp.data.network.mapper.ArticleNetworkMapper;
+import com.example.android.newsapp.data.helper.NetworkMapper;
 import com.example.android.newsapp.domain.model.ArticleDomain;
 
 import dagger.Module;
