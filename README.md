@@ -6,8 +6,9 @@
 
 </br>
 
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/NewsApp%2F1.png?alt=media&token=726246ba-e2d3-46a4-807d-6b9e591065b6" width="420" height="692" style="margin:4px"> <img/><img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/NewsApp%2F2.png?alt=media&token=58d28136-8def-4b02-8a40-68d6859db9bd" width="420" height="692" style="margin:4px">
-<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/NewsApp%2F3.png?alt=media&token=bc7e45df-f31c-458a-87f5-241eba2f007d" width="420" height="692" style="margin:4px">
+<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/NewsApp%2F1.png?alt=media&token=726246ba-e2d3-46a4-807d-6b9e591065b6" width="375" height="725"><img height="725" hspace="20"/><img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/NewsApp%2F2.png?alt=media&token=58d28136-8def-4b02-8a40-68d6859db9bd" width="375" height="725">
+<img width="770" vspace="20"/>
+<img src="https://firebasestorage.googleapis.com/v0/b/inventoryapp-c8633.appspot.com/o/NewsApp%2F3.png?alt=media&token=bc7e45df-f31c-458a-87f5-241eba2f007d" width="375" height="725">
 
 ## Getting Started
 
@@ -42,7 +43,7 @@ API_KEY = Insert your TheGuardianOpenPlatform API key here using double quotes
 
 #### To report a specific problem or feature request, open a new issue on Github. For questions, suggestions, or anything else, email to:
 
-###### arturo_lpc@hotmail.com
+###### arturo.lpc12@gmail.com
 
 ## Author
 
