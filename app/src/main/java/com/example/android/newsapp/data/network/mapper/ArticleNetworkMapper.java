@@ -2,10 +2,10 @@ package com.example.android.newsapp.data.network.mapper;
 
 import com.example.android.newsapp.data.network.model.ArticleNetwork;
 import com.example.android.newsapp.data.network.model.Fields;
-import com.example.android.newsapp.data.helper.NetworkMapper;
 import com.example.android.newsapp.domain.model.ArticleDomain;
+import com.example.android.newsapp.data.util.Mapper;
 
-public class ArticleNetworkMapper implements NetworkMapper<ArticleNetwork, ArticleDomain> {
+public class ArticleNetworkMapper implements Mapper<ArticleNetwork, ArticleDomain> {
 
     @Override
     public ArticleDomain mapToDomainModel(ArticleNetwork articleNetwork) {

@@ -2,12 +2,12 @@ package com.example.android.newsapp.data.repository;
 
 import com.example.android.newsapp.BuildConfig;
 import com.example.android.newsapp.data.network.datasource.NewsService;
+import com.example.android.newsapp.data.network.model.ArticleNetwork;
 import com.example.android.newsapp.data.network.model.NewsSearch;
 import com.example.android.newsapp.data.network.model.Response;
-import com.example.android.newsapp.data.network.model.ArticleNetwork;
-import com.example.android.newsapp.data.helper.NetworkMapper;
 import com.example.android.newsapp.domain.model.ArticleDomain;
 import com.example.android.newsapp.domain.repository.NewsRepository;
+import com.example.android.newsapp.data.util.Mapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,7 +23,7 @@ import io.reactivex.functions.Function;
 public class NewsRepositoryImpl implements NewsRepository {
 
     private final NewsService newsService;
-    private final NetworkMapper<ArticleNetwork, ArticleDomain> networkMapper;
+    private final Mapper<ArticleNetwork, ArticleDomain> networkMapper;
 
     /*Simulate the data in Cache*/
     private List<ArticleNetwork> results;
@@ -39,7 +39,7 @@ public class NewsRepositoryImpl implements NewsRepository {
     private static final String FILTER_RESULTS = "headline,byline,thumbnail";
 
     @Inject
-    public NewsRepositoryImpl(NewsService newsService, NetworkMapper<ArticleNetwork, ArticleDomain> networkMapper){
+    public NewsRepositoryImpl(NewsService newsService, Mapper<ArticleNetwork, ArticleDomain> networkMapper){
         this.newsService = newsService;
         this.networkMapper = networkMapper;
         this.results = new ArrayList<>();
