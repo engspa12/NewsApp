@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.example.android.newsapp.domain.model.ArticleDomain;
 import com.example.android.newsapp.domain.repository.NewsRepository;
-import com.example.android.newsapp.domain.helper.ResultDomain;
+import com.example.android.newsapp.domain.util.ResultWrapper;
 import com.example.android.newsapp.presentation.model.ArticleView;
 import com.example.android.newsapp.util.FrameworkHelper;
 
@@ -30,16 +30,16 @@ public class NewsInteractorImpl implements NewsInteractor {
     }
 
     @Override
-    public Observable<ResultDomain<List<ArticleView>>> getData(String searchTerm, String sortType) {
+    public Observable<ResultWrapper<List<ArticleView>>> getData(String searchTerm, String sortType) {
 
         List<ArticleView> articles = new ArrayList<>();
 
         if(frameworkHelper.isOnline()){
             return newsRepository.getNewsData(searchTerm,sortType)
                     .subscribeOn(Schedulers.io())
-                    .map(new Function<List<ArticleDomain>, ResultDomain<List<ArticleView>>>() {
+                    .map(new Function<List<ArticleDomain>, ResultWrapper<List<ArticleView>>>() {
                         @Override
-                        public ResultDomain<List<ArticleView>> apply(List<ArticleDomain> domainItems) throws Exception {
+                        public ResultWrapper<List<ArticleView>> apply(List<ArticleDomain> domainItems) throws Exception {
 
                             for (ArticleDomain domainItem: domainItems) {
                                 String sectionName = domainItem.getSectionName();
@@ -52,19 +52,19 @@ public class NewsInteractorImpl implements NewsInteractor {
                                 articles.add(new ArticleView(webTitle, sectionName, author, publicationDate, webUrl, thumbnailUrl));
                             }
 
-                            return new ResultDomain<>(articles, false, null);
+                            return new ResultWrapper<>(articles, false, null);
                         }
                     })
-                    .onErrorReturn(new Function<Throwable, ResultDomain<List<ArticleView>>>() {
+                    .onErrorReturn(new Function<Throwable, ResultWrapper<List<ArticleView>>>() {
                         @Override
-                        public ResultDomain<List<ArticleView>> apply(Throwable throwable) throws Exception {
+                        public ResultWrapper<List<ArticleView>> apply(Throwable throwable) throws Exception {
                             Log.e("NewsInteractorImpl", throwable.getMessage());
-                            return new ResultDomain<>(articles, true, frameworkHelper.getErrorMessage());
+                            return new ResultWrapper<>(articles, true, frameworkHelper.getErrorMessage());
                         }
                     })
                     .observeOn(AndroidSchedulers.mainThread());
         } else {
-            ResultDomain<List<ArticleView>> listArticles = new ResultDomain<List<ArticleView>>(articles, true, frameworkHelper.getNoInternetMessage());
+            ResultWrapper<List<ArticleView>> listArticles = new ResultWrapper<List<ArticleView>>(articles, true, frameworkHelper.getNoInternetMessage());
             return Observable.just(listArticles);
         }
     }

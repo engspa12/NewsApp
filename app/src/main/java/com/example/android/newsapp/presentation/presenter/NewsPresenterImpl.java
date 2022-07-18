@@ -4,8 +4,7 @@ import androidx.annotation.VisibleForTesting;
 import androidx.test.espresso.idling.CountingIdlingResource;
 
 import com.example.android.newsapp.domain.interactor.NewsInteractor;
-import com.example.android.newsapp.domain.model.ArticleDomain;
-import com.example.android.newsapp.domain.helper.ResultDomain;
+import com.example.android.newsapp.domain.util.ResultWrapper;
 import com.example.android.newsapp.presentation.model.ArticleView;
 import com.example.android.newsapp.presentation.view.contract.NewsView;
 
@@ -48,9 +47,9 @@ public class NewsPresenterImpl implements NewsPresenter {
 
         if (newsView != null) {
             subscription = newsInteractor.getData(searchTerm, sortType)
-                    .subscribe(new Consumer<ResultDomain<List<ArticleView>>>() {
+                    .subscribe(new Consumer<ResultWrapper<List<ArticleView>>>() {
                         @Override
-                        public void accept(ResultDomain<List<ArticleView>> listArticles) throws Exception {
+                        public void accept(ResultWrapper<List<ArticleView>> listArticles) throws Exception {
                             if(listArticles.getErrorPresent()){
                                 newsView.showErrorMessage(listArticles.getErrorMessage());
                             } else {
