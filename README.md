@@ -36,8 +36,8 @@ API_KEY = Insert your TheGuardianOpenPlatform API key here using double quotes
 
 ## Compatibility
 
-#### Minimum Android SDK: NewsApp requires a minimum API level of 15.
-#### Compile Android SDK: NewsApp requires you to compile against API 27 or later.
+#### Minimum Android SDK: NewsApp requires a minimum API level of 21.
+#### Compile Android SDK: NewsApp requires you to compile against API 32 or later.
 
 ## Getting Help
 
